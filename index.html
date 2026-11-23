@@ -408,7 +408,7 @@
   <footer class="bg-white border-t border-blue-100 mt-12 py-6 px-4 text-center text-xs sm:text-sm text-slate-500">
     <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
       <p class="font-semibold text-slate-700">Тригонометрия Көмекшісі — ҰБТ-ға дайындық порталы</p>
-      <p>Оқушыларға арналған ашық білім беру ресурсы • Кез келген құрылғыда тегін жұмыс істейді</p>
+      
     </div>
   </footer>
 
@@ -1643,7 +1643,7 @@
       };
 
       const apiKey = "AQ.Ab8RN6K68mo5-xwGme8Am3KCFliXI-sJ2-iO7wDFCd49Wg-LmQ";
-      const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
+      const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
 
       try {
         const result = await fetchWithBackoff(apiUrl, {
