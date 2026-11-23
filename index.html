@@ -116,7 +116,7 @@
             Тригонометрия Көмекшісі — ҰБТ-ға дайындық порталы
           </h1>
           <p class="text-blue-100 text-sm sm:text-base mt-1.5 font-medium">
-            Формулалар, бірлік шеңбер, шығару әдістері және ЖИ-подсказка
+            Формулалар, бірлік шеңбер, шығару әдістері және подсказка
           </p>
         </div>
 
@@ -143,7 +143,7 @@
         </button>
         <button id="main-tab-3" onclick="switchMainTab(3)" class="tab-btn-inactive flex items-center justify-center gap-2 px-4 py-3.5 rounded-xl font-bold text-sm sm:text-base transition cursor-pointer">
           <span class="text-lg">📸</span>
-          <span>3. Сурет бойынша ЖИ-Подсказка</span>
+          <span>3. Сурет бойынша подсказка</span>
         </button>
       </nav>
     </div>
@@ -255,7 +255,7 @@
               Есептің суретін жүктеп тәсілін анықтау
             </h2>
             <p class="text-slate-600 text-sm mt-1">
-              Теңдеу немесе теңсіздік суретін жүктеңіз (немесе мәтінмен жазыңыз). ЖИ есепті оқып, қай әдіске жататынын және қандай формула қолдану керектігін түсіндіріп береді!
+              Теңдеу немесе теңсіздік суретін жүктеңіз (немесе мәтінмен жазыңыз). Қай әдіске жататынын және қандай формула қолдану керектігін түсіндіріп береміз!
             </p>
           </div>
         </div>
@@ -329,7 +329,7 @@
               <div class="w-16 h-16 bg-blue-100 text-royal-700 rounded-2xl flex items-center justify-center text-3xl mb-3">
                 🤖
               </div>
-              <h3 class="font-bold text-slate-800 text-lg">ЖИ-Көмекші дайын тұр!</h3>
+              <h3 class="font-bold text-slate-800 text-lg">Көмекші дайын тұр!</h3>
               <p class="text-slate-500 text-sm max-w-md mt-1.5 leading-relaxed">
                 Сол жақтан есептің фотосын жүктеңіз немесе дайын мысалдардың бірін басыңыз. ЖИ сізге:
               </p>
@@ -345,7 +345,7 @@
             <div id="ai-loading-state" class="hidden h-full min-h-[320px] bg-blue-50/60 border-2 border-blue-200 rounded-2xl p-6 flex flex-col items-center justify-center text-center">
               <div class="w-12 h-12 border-4 border-royal-200 border-t-royal-700 rounded-full animate-spin mb-4"></div>
               <h3 class="font-bold text-royal-900 text-lg">Есеп талдануда...</h3>
-              <p class="text-royal-700 text-sm mt-1">ЖИ есептің құрылымын тексеріп, ең тиімді шығару тәсілін таңдап жатыр.</p>
+              <p class="text-royal-700 text-sm mt-1">Есептің құрылымын тексеріп, ең тиімді шығару тәсілін таңдап жатырмыз.</p>
             </div>
 
             <!-- Result Card State -->
@@ -353,7 +353,7 @@
               <div class="bg-white border-2 border-royal-700 rounded-2xl overflow-hidden shadow-md">
                 <div class="bg-royal-700 text-white px-5 py-3.5 flex items-center justify-between">
                   <span class="font-bold text-sm sm:text-base flex items-center gap-2">
-                    <span>💡 ЖИ-Талдау нәтижесі</span>
+                    <span>💡 Талдау нәтижесі</span>
                   </span>
                   <span id="ai-method-badge" class="bg-white text-royal-800 text-xs font-extrabold px-3 py-1 rounded-full">
                     Әдіс анықталды
@@ -1642,7 +1642,7 @@
         }
       };
 
-      const apiKey = "";
+      const apiKey = "AQ.Ab8RN6K68mo5-xwGme8Am3KCFliXI-sJ2-iO7wDFCd49Wg-LmQ";
       const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
 
       try {
