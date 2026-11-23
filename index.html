@@ -1471,11 +1471,19 @@
         .replace(/\s+/g, " ")
         .trim();
 
+      // Fix common OCR misreadings in math formulas (e.g., 5x -> bz/bx, 2x -> 2z/2r, √3/2 -> RS)
       text = text
         .replace(/s[il1]n/gi, "sin")
         .replace(/c[o0]s/gi, "cos")
         .replace(/t[gq9]/gi, "tg")
         .replace(/ct[gq9]/gi, "ctg")
+        .replace(/\bb[xzr]\b/gi, "5x")
+        .replace(/sin\s*b[xzr]/gi, "sin 5x")
+        .replace(/cos\s*b[xzr]/gi, "cos 5x")
+        .replace(/(\d+)\s*[zr]\b/gi, "$1x")
+        .replace(/([a-z0-9])\s*[zr]\b/gi, "$1x")
+        .replace(/=\s*RS\b/gi, "= √3/2")
+        .replace(/\bRS\b/gi, "√3/2")
         .replace(/—|–/g, "-")
         .replace(/≥|>=/g, "≥")
         .replace(/≤|<=/g, "≤")
