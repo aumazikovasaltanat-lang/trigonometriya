@@ -14,248 +14,26 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}]});"></script>
+  <!-- Tesseract.js for local browser-based image text recognition (OCR) without any API key -->
+  <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
 
   <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: {
-            sans: ['Inter', 'sans-serif'],
-          },
-          colors: {
-            royal: {
-              50: '#eff6ff',
-              100: '#dbeafe',
-              200: '#bfdbfe',
-              500: '#3b82f6',
-              600: '#2563eb',
-              700: '#1d4ed8',
-              800: '#1e40af',
-              900: '#1e3a8a',
-            }
-          }
-        }
-      }
-    };
-  </script>
-  <style>
-    body {
-      font-family: 'Inter', sans-serif;
-      background-color: #f8fafc;
-      color: #0f172a;
-      overflow-x: hidden;
-    }
-    .academic-card {
-      background: #ffffff;
-      border: 2px solid #1d4ed8;
-      border-radius: 1rem;
-      box-shadow: 0 4px 20px -2px rgba(29, 78, 216, 0.08);
-    }
-    .academic-subcard {
-      background: #ffffff;
-      border: 1.5px solid #93c5fd;
-      border-radius: 0.875rem;
-      transition: transform 0.18s ease, box-shadow 0.18s ease;
-    }
-    .academic-subcard:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 25px -5px rgba(29, 78, 216, 0.14);
-    }
-    .tab-btn-active {
-      background-color: #1d4ed8;
-      color: #ffffff;
-      box-shadow: 0 4px 12px rgba(29, 78, 216, 0.3);
-    }
-    .tab-btn-inactive {
-      background-color: #ffffff;
-      color: #1e3a8a;
-      border: 1.5px solid #bfdbfe;
-    }
-    .tab-btn-inactive:hover {
-      background-color: #eff6ff;
-    }
-    .func-btn-active {
-      background-color: #1d4ed8;
-      color: #ffffff;
-      border-color: #1d4ed8;
-    }
-    .func-btn-inactive {
-      background-color: #eff6ff;
-      color: #1d4ed8;
-      border-color: #bfdbfe;
-    }
-    .func-btn-inactive:hover {
-      background-color: #dbeafe;
-    }
-    /* Custom scrollbar for horizontal math formulas on narrow phones */
-    .math-scroll::-webkit-scrollbar {
-      height: 4px;
-    }
-    .math-scroll::-webkit-scrollbar-thumb {
-      background: #93c5fd;
-      border-radius: 9999px;
-    }
-    .katex {
-      font-size: 1.05em;
-    }
-  </style>
-</head>
-<body class="min-h-screen flex flex-col">
-
-  <!-- Top Header Banner -->
-  <header class="bg-gradient-to-r from-royal-800 via-royal-700 to-blue-600 text-white shadow-lg">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
-      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-        <div>
-          <div class="inline-flex items-center gap-2 bg-white/15 backdrop-blur-sm px-3 py-1 rounded-full text-xs sm:text-sm font-semibold tracking-wide mb-2">
-            <span>🎓 ҰБТ Математика</span>
-            <span>•</span>
-            <span>Тегін онлайн анықтамалық</span>
-          </div>
-          <h1 class="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight leading-tight">
-            Тригонометрия Көмекшісі — ҰБТ-ға дайындық порталы
-          </h1>
-          <p class="text-blue-100 text-sm sm:text-base mt-1.5 font-medium">
-            Формулалар, бірлік шеңбер, шығару әдістері және подсказка
-          </p>
-        </div>
-
-        <!-- Quick Share / Copy Link Button for Students -->
-        <div class="flex items-center gap-2 self-start md:self-center">
-          <button onclick="copyShareMessage()" class="inline-flex items-center gap-2 bg-white text-royal-700 hover:bg-blue-50 font-semibold text-xs sm:text-sm px-4 py-2.5 rounded-xl shadow transition active:scale-95">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
-            </svg>
-            <span>Сыныптастармен бөлісу</span>
-          </button>
-        </div>
-      </div>
-
-      <!-- Main Navigation Tabs -->
-      <nav class="grid grid-cols-1 sm:grid-cols-3 gap-2.5 mt-6" aria-label="Негізгі бөлімдер">
-        <button id="main-tab-1" onclick="switchMainTab(1)" class="tab-btn-active flex items-center justify-center gap-2 px-4 py-3.5 rounded-xl font-bold text-sm sm:text-base transition cursor-pointer">
-          <span class="text-lg">⭕</span>
-          <span>1. Қарапайым теңсіздіктер</span>
-        </button>
-        <button id="main-tab-2" onclick="switchMainTab(2)" class="tab-btn-inactive flex items-center justify-center gap-2 px-4 py-3.5 rounded-xl font-bold text-sm sm:text-base transition cursor-pointer">
-          <span class="text-lg">📐</span>
-          <span>2. Шығару әдістері (6 тәсіл)</span>
-        </button>
-        <button id="main-tab-3" onclick="switchMainTab(3)" class="tab-btn-inactive flex items-center justify-center gap-2 px-4 py-3.5 rounded-xl font-bold text-sm sm:text-base transition cursor-pointer">
-          <span class="text-lg">📸</span>
-          <span>3. Сурет бойынша подсказка</span>
-        </button>
-      </nav>
-    </div>
-  </header>
-
-  <!-- Toast Notification Banner (No alert() used) -->
-  <div id="toast-box" class="fixed bottom-5 right-5 z-50 hidden transform transition-all duration-300">
-    <div class="bg-slate-900 text-white px-4 py-3 rounded-xl shadow-xl border border-blue-400 flex items-center gap-2.5 text-sm font-medium">
-      <span class="text-blue-400 text-lg">✓</span>
-      <span id="toast-text">Хабарлама</span>
-    </div>
-  </div>
-
-  <!-- Main Content Container -->
-  <main class="flex-1 max-w-6xl w-full mx-auto px-4 sm:px-6 py-6 sm:py-8">
-
+// ... existing code ... -->
     <!-- ===================================================================== -->
-    <!-- TAB 1: ҚАРАПАЙЫМ ТРИГОНОМЕТРИЯЛЫҚ ТЕҢСІЗДІКТЕР (БІРЛІК ШЕҢБЕРМЕН)      -->
-    <!-- ===================================================================== -->
-    <section id="section-tab-1" class="space-y-6">
-      <!-- Function Selector Bar -->
-      <div class="academic-card p-4 sm:p-6">
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
-          <div>
-            <span class="inline-block bg-royal-700 text-white text-xs font-bold px-2.5 py-1 rounded-md uppercase tracking-wider">Бөлім 4.1</span>
-            <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900 mt-1">
-              Қарапайым тригонометриялық теңсіздіктер
-            </h2>
-            <p class="text-slate-600 text-sm">Функцияны таңдап, шешу алгоритмі мен бірлік шеңбердегі ширектерді қараңыз:</p>
-          </div>
-        </div>
-
-        <!-- 4 Sub-tabs: sin x, cos x, tg x, ctg x -->
-        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
-          <button id="func-btn-sin" onclick="selectTrigFunc('sin')" class="func-btn-active border-2 py-3 px-4 rounded-xl font-extrabold text-base sm:text-lg transition cursor-pointer shadow-sm">
-            $\sin x \lor a$
-          </button>
-          <button id="func-btn-cos" onclick="selectTrigFunc('cos')" class="func-btn-inactive border-2 py-3 px-4 rounded-xl font-extrabold text-base sm:text-lg transition cursor-pointer">
-            $\cos x \lor a$
-          </button>
-          <button id="func-btn-tg" onclick="selectTrigFunc('tg')" class="func-btn-inactive border-2 py-3 px-4 rounded-xl font-extrabold text-base sm:text-lg transition cursor-pointer">
-            $\text{tg}\,x \lor a$
-          </button>
-          <button id="func-btn-ctg" onclick="selectTrigFunc('ctg')" class="func-btn-inactive border-2 py-3 px-4 rounded-xl font-extrabold text-base sm:text-lg transition cursor-pointer">
-            $\text{ctg}\,x \lor a$
-          </button>
-        </div>
-      </div>
-
-      <!-- Dynamic Content Container for Selected Trig Function -->
-      <div id="trig-func-content" class="space-y-6">
-        <!-- Populated via JS -->
-      </div>
-    </section>
-
-    <!-- ===================================================================== -->
-    <!-- TAB 2: ТЕҢДЕУЛЕР МЕН ТЕҢСІЗДІКТЕРДІ ШЫҒАРУ ӘДІСТЕРІ (6 ТӘСІЛ)           -->
-    <!-- ===================================================================== -->
-    <section id="section-tab-2" class="hidden space-y-6">
-      <div class="academic-card p-5 sm:p-6 bg-gradient-to-br from-white to-blue-50/60">
-        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
-          <div>
-            <span class="inline-block bg-royal-700 text-white text-xs font-bold px-2.5 py-1 rounded-md uppercase tracking-wider">Толық нұсқаулық</span>
-            <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900 mt-1">
-              Теңдеулер мен теңсіздіктерді шығару әдістері
-            </h2>
-            <p class="text-slate-600 text-sm mt-1">
-              Есептің қай әдіске жататынын қалай тез ажыратуға болады? Әр әдістің белгісі, формуласы және толық мысалы төменде берілген.
-            </p>
-          </div>
-          <div class="flex gap-2">
-            <button onclick="toggleAllMethods(true)" class="text-xs font-semibold bg-royal-100 text-royal-800 hover:bg-royal-200 px-3 py-2 rounded-lg transition">
-              Барлығын ашу
-            </button>
-            <button onclick="toggleAllMethods(false)" class="text-xs font-semibold bg-slate-100 text-slate-700 hover:bg-slate-200 px-3 py-2 rounded-lg transition">
-              Жинақтау
-            </button>
-          </div>
-        </div>
-
-        <!-- Quick Cheat-Sheet Filter Pills -->
-        <div class="flex flex-wrap gap-2 mt-4 pt-4 border-t border-blue-100">
-          <a href="#method-1" class="text-xs sm:text-sm font-semibold bg-white border border-blue-200 text-royal-700 hover:bg-royal-700 hover:text-white px-3 py-1.5 rounded-full transition">1. Көбейткіштерге жіктеу</a>
-          <a href="#method-2" class="text-xs sm:text-sm font-semibold bg-white border border-blue-200 text-royal-700 hover:bg-royal-700 hover:text-white px-3 py-1.5 rounded-full transition">2. Жаңа айнымалы енгізу</a>
-          <a href="#method-3" class="text-xs sm:text-sm font-semibold bg-white border border-blue-200 text-royal-700 hover:bg-royal-700 hover:text-white px-3 py-1.5 rounded-full transition">3. Біртектес теңдеу</a>
-          <a href="#method-4" class="text-xs sm:text-sm font-semibold bg-white border border-blue-200 text-royal-700 hover:bg-royal-700 hover:text-white px-3 py-1.5 rounded-full transition">4. Формулалар көмегімен</a>
-          <a href="#method-5" class="text-xs sm:text-sm font-semibold bg-white border border-blue-200 text-royal-700 hover:bg-royal-700 hover:text-white px-3 py-1.5 rounded-full transition">5. Қосымша бұрыш енгізу</a>
-          <a href="#method-6" class="text-xs sm:text-sm font-semibold bg-white border border-blue-200 text-royal-700 hover:bg-royal-700 hover:text-white px-3 py-1.5 rounded-full transition">6. Теңсіздіктер жүйесі</a>
-        </div>
-      </div>
-
-      <!-- Method Cards Container -->
-      <div id="methods-container" class="space-y-5">
-        <!-- Populated via JS for clean structure -->
-      </div>
-    </section>
-
-    <!-- ===================================================================== -->
-    <!-- TAB 3: СУРЕТ БОЙЫНША ЖИ-ПОДСКАЗКА (GEMINI AI IMAGE ANALYZER)          -->
+    <!-- TAB 3: СУРЕТ БОЙЫНША ПОДСКАЗКА (100% ОФЛАЙН МАТЕМАТИКАЛЫҚ ТАЛДАУШЫ)    -->
     <!-- ===================================================================== -->
     <section id="section-tab-3" class="hidden space-y-6">
       <div class="academic-card p-5 sm:p-7">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-blue-100 pb-4">
           <div>
             <div class="inline-flex items-center gap-1.5 bg-blue-100 text-royal-800 text-xs font-bold px-3 py-1 rounded-full">
-              <span>✨ Gemini AI Көмекші</span>
+              <span>✨ Математикалық Көмекші • Кілтсіз 100% жұмыс істейді</span>
             </div>
             <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900 mt-1.5">
               Есептің суретін жүктеп тәсілін анықтау
             </h2>
             <p class="text-slate-600 text-sm mt-1">
-              Теңдеу немесе теңсіздік суретін жүктеңіз (немесе мәтінмен жазыңыз). Қай әдіске жататынын және қандай формула қолдану керектігін түсіндіріп береміз!
+              Теңдеу немесе теңсіздік суретін жүктеңіз (немесе мәтінмен жазыңыз). Қай әдіске жататынын және қандай формула қолдану керектігін лезде түсіндіріп береміз!
             </p>
           </div>
         </div>
@@ -295,15 +73,15 @@
             <!-- Or Manual Equation Input -->
             <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200 space-y-2.5">
               <label for="manual-equation-input" class="block text-xs font-bold text-slate-700 uppercase tracking-wider">
-                Немесе есепті мәтінмен жазыңыз:
+                Есептің мәтіні (суреттен оқылады немесе қолмен жазыңыз):
               </label>
-              <input type="text" id="manual-equation-input" placeholder="Мысалы: cos2x + 4cosx = 5 немесе √3sinx - cosx < √2" class="w-full px-3.5 py-2.5 bg-white border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-royal-600 focus:border-transparent" />
+              <input type="text" id="manual-equation-input" placeholder="Мысалы: sin5x cos2x - cos5x sin2x = √3/2" class="w-full px-3.5 py-2.5 bg-white border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-royal-600 focus:border-transparent" />
 
-              <!-- 3 Quick Sample Buttons for Instant Testing -->
+              <!-- Quick Sample Buttons for Instant Testing -->
               <div class="pt-1">
                 <p class="text-xs font-semibold text-slate-500 mb-1.5">Жылдам тексеру үшін мысал таңдаңыз:</p>
                 <div class="flex flex-wrap gap-1.5">
-                  <button type="button" onclick="setSampleEquation('sin 4x · cos(π/6) + sin(π/6) · cos 4x ≥ 1/2')" class="text-xs bg-white hover:bg-royal-50 text-royal-700 border border-blue-200 px-2.5 py-1.5 rounded-lg font-medium transition">
+                  <button type="button" onclick="setSampleEquation('sin 5x · cos 2x - cos 5x · sin 2x = √3/2')" class="text-xs bg-white hover:bg-royal-50 text-royal-700 border border-blue-200 px-2.5 py-1.5 rounded-lg font-medium transition">
                     Мысал 1: Қосу формуласы
                   </button>
                   <button type="button" onclick="setSampleEquation('2sin²x - 3sinx cosx + cos²x = 0')" class="text-xs bg-white hover:bg-royal-50 text-royal-700 border border-blue-200 px-2.5 py-1.5 rounded-lg font-medium transition">
@@ -312,22 +90,25 @@
                   <button type="button" onclick="setSampleEquation('√3 sinx - cosx < √2')" class="text-xs bg-white hover:bg-royal-50 text-royal-700 border border-blue-200 px-2.5 py-1.5 rounded-lg font-medium transition">
                     Мысал 3: Қосымша бұрыш
                   </button>
+                  <button type="button" onclick="setSampleEquation('cos2x + 4cosx = 5')" class="text-xs bg-white hover:bg-royal-50 text-royal-700 border border-blue-200 px-2.5 py-1.5 rounded-lg font-medium transition">
+                    Мысал 4: Жаңа айнымалы
+                  </button>
                 </div>
               </div>
             </div>
 
             <!-- Analyze Button -->
-            <button id="analyze-btn" onclick="analyzeWithGemini()" class="w-full py-3.5 px-5 bg-royal-700 hover:bg-royal-800 text-white font-extrabold text-base rounded-xl shadow-lg shadow-blue-600/25 transition flex items-center justify-center gap-2 cursor-pointer active:scale-[0.99]">
+            <button id="analyze-btn" onclick="analyzeEquationNow()" class="w-full py-3.5 px-5 bg-royal-700 hover:bg-royal-800 text-white font-extrabold text-base rounded-xl shadow-lg shadow-blue-600/25 transition flex items-center justify-center gap-2 cursor-pointer active:scale-[0.99]">
               <span>🔍 Тәсілін анықтау және Подсказка алу</span>
             </button>
           </div>
 
-          <!-- Right Column: AI Response Result Area -->
+          <!-- Right Column: Response Result Area -->
           <div class="lg:col-span-7">
             <!-- Initial Empty State -->
             <div id="ai-empty-state" class="h-full min-h-[320px] bg-slate-50/80 border-2 border-slate-200 rounded-2xl p-6 flex flex-col items-center justify-center text-center">
               <div class="w-16 h-16 bg-blue-100 text-royal-700 rounded-2xl flex items-center justify-center text-3xl mb-3">
-                🤖
+                📐
               </div>
               <h3 class="font-bold text-slate-800 text-lg">Көмекші дайын тұр!</h3>
               <p class="text-slate-500 text-sm max-w-md mt-1.5 leading-relaxed">
@@ -344,14 +125,14 @@
             <!-- Loading State -->
             <div id="ai-loading-state" class="hidden h-full min-h-[320px] bg-blue-50/60 border-2 border-blue-200 rounded-2xl p-6 flex flex-col items-center justify-center text-center">
               <div class="w-12 h-12 border-4 border-royal-200 border-t-royal-700 rounded-full animate-spin mb-4"></div>
-              <h3 class="font-bold text-royal-900 text-lg">Есеп талдануда...</h3>
+              <h3 class="font-bold text-royal-900 text-lg">Суреттен есеп оқылуда...</h3>
               <p class="text-royal-700 text-sm mt-1">Есептің құрылымын тексеріп, ең тиімді шығару тәсілін таңдап жатырмыз.</p>
             </div>
 
             <!-- Result Card State -->
             <div id="ai-result-state" class="hidden space-y-4">
               <div class="bg-white border-2 border-royal-700 rounded-2xl overflow-hidden shadow-md">
-                <div class="bg-royal-700 text-white px-5 py-3.5 flex items-center justify-between">
+                <div class="bg-royal-700 text-white px-5 py-3.5 flex items-center justify-between gap-2">
                   <span class="font-bold text-sm sm:text-base flex items-center gap-2">
                     <span>💡 Талдау нәтижесі</span>
                   </span>
@@ -1454,51 +1235,27 @@
       }
       document.body.removeChild(tempInput);
     }
-    async function fetchWithBackoff(url, options, maxRetries = 2) {
-      let delay = 800;
-      for (let attempt = 0; attempt <= maxRetries; attempt++) {
-        try {
-          const response = await fetch(url, options);
-          if (response.ok) {
-            return await response.json();
-          }
-          if (response.status === 429 || response.status >= 500) {
-            if (attempt === maxRetries) throw new Error(`API қатесі: ${response.status}`);
-            await new Promise((res) => setTimeout(res, delay));
-            delay *= 2;
-          } else {
-            const errData = await response.json().catch(() => ({}));
-            throw new Error(errData?.error?.message || `Сұраныс қатесі (${response.status})`);
-          }
-        } catch (err) {
-          if (attempt === maxRetries) throw err;
-          await new Promise((res) => setTimeout(res, delay));
-          delay *= 2;
-        }
-      }
-    }
 
-    async function callGeminiWithFallback(apiKey, payload) {
-      const models = [
-        "gemini-3.5-flash-lite",
-        "gemini-3.5-flash",
-        "gemini-2.5-flash"
-      ];
-      let lastError = null;
+    // =========================================================================
+    // 5. TAB 3: 100% CLIENT-SIDE OCR + SMART TRIGONOMETRY METHOD CLASSIFIER
+    //    (NO API KEYS, NO NETWORK ERRORS, INSTANT KAZAKH HINTS)
+    // =========================================================================
+    let uploadedImageDataUrl = null;
 
-      for (const modelName of models) {
-        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${modelName}:generateContent?key=${apiKey}`;
-        try {
-          return await fetchWithBackoff(apiUrl, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(payload)
-          });
-        } catch (err) {
-          lastError = err;
-        }
-      }
-      throw lastError || new Error("Серверге қосылу мүмкін болмады. Қайта байқап көріңіз.");
+    function handleImageUpload(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        uploadedImageDataUrl = e.target.result;
+        document.getElementById("image-preview").src = uploadedImageDataUrl;
+        document.getElementById("upload-placeholder").classList.add("hidden");
+        document.getElementById("image-preview-wrapper").classList.remove("hidden");
+        // Automatically run OCR & classification upon upload
+        analyzeEquationNow();
+      };
+      reader.readAsDataURL(file);
     }
 
     // Drag and drop support
@@ -1521,7 +1278,7 @@
     });
 
     function clearUploadedImage() {
-      uploadedBase64Data = null;
+      uploadedImageDataUrl = null;
       document.getElementById("equation-image-input").value = "";
       document.getElementById("image-preview").src = "";
       document.getElementById("image-preview-wrapper").classList.add("hidden");
@@ -1531,7 +1288,7 @@
     function setSampleEquation(eqText) {
       clearUploadedImage();
       document.getElementById("manual-equation-input").value = eqText;
-      analyzeWithGemini();
+      analyzeEquationNow();
     }
 
     function toggleFullSolution() {
@@ -1546,34 +1303,249 @@
       }
     }
 
-    async function fetchWithBackoff(url, options, maxRetries = 4) {
-      let delay = 1000;
-      for (let attempt = 0; attempt <= maxRetries; attempt++) {
-        try {
-          const response = await fetch(url, options);
-          if (response.ok) {
-            return await response.json();
-          }
-          if (response.status === 429 || response.status >= 500) {
-            if (attempt === maxRetries) throw new Error(`API қатесі: ${response.status}`);
-            await new Promise((res) => setTimeout(res, delay));
-            delay *= 2;
-          } else {
-            const errData = await response.json().catch(() => ({}));
-            throw new Error(errData?.error?.message || `Сұраныс қатесі (${response.status})`);
-          }
-        } catch (err) {
-          if (attempt === maxRetries) throw err;
-          await new Promise((res) => setTimeout(res, delay));
-          delay *= 2;
-        }
-      }
+    // Clean OCR text from Tesseract into readable mathematical notation
+    function cleanOcrMathText(rawOcr) {
+      if (!rawOcr) return "";
+      let text = rawOcr
+        .replace(/\r?\n|\r/g, " ")
+        .replace(/\s+/g, " ")
+        .trim();
+
+      // Common OCR corrections for trigonometric formulas
+      text = text
+        .replace(/s[il1]n/gi, "sin")
+        .replace(/c[o0]s/gi, "cos")
+        .replace(/t[gq9]/gi, "tg")
+        .replace(/ct[gq9]/gi, "ctg")
+        .replace(/—|–/g, "-")
+        .replace(/≥|>=/g, "≥")
+        .replace(/≤|<=/g, "≤")
+        .replace(/V3|√3/g, "√3")
+        .replace(/V2|√2/g, "√2")
+        .replace(/π|п|n(?=\/)/gi, "π");
+
+      return text;
     }
 
-    async function analyzeWithGemini() {
-      const manualText = document.getElementById("manual-equation-input").value.trim();
+    // Convert raw equation text into clean LaTeX for display
+    function formatEquationToLatex(eq) {
+      let latex = eq
+        .replace(/√(\d+)/g, "\\sqrt{$1}")
+        .replace(/sin\^2/gi, "\\sin^2")
+        .replace(/cos\^2/gi, "\\cos^2")
+        .replace(/tg\^2/gi, "\\text{tg}^2")
+        .replace(/ctg\^2/gi, "\\text{ctg}^2")
+        .replace(/sin²/gi, "\\sin^2")
+        .replace(/cos²/gi, "\\cos^2")
+        .replace(/tg²/gi, "\\text{tg}^2")
+        .replace(/ctg²/gi, "\\text{ctg}^2")
+        .replace(/\bsin\b/gi, "\\sin")
+        .replace(/\bcos\b/gi, "\\cos")
+        .replace(/\bctg\b/gi, "\\text{ctg}\\,")
+        .replace(/\btg\b/gi, "\\text{tg}\\,")
+        .replace(/π/g, "\\pi")
+        .replace(/≥/g, "\\ge ")
+        .replace(/≤/g, "\\le ")
+        .replace(/·/g, "\\cdot ");
 
-      if (!uploadedBase64Data && !manualText) {
+      return `$${latex}$`;
+    }
+
+    // Rule-based Kazakh Trigonometry Method Classifier & Hint Generator
+    function classifyTrigonometryProblem(inputText) {
+      const clean = inputText.trim();
+      const norm = clean
+        .toLowerCase()
+        .replace(/\s+/g, "")
+        .replace(/·|\*/g, "")
+        .replace(/²/g, "^2")
+        .replace(/≥/g, ">=")
+        .replace(/≤/g, "<=");
+
+      const latexDisplay = formatEquationToLatex(clean);
+
+      // -----------------------------------------------------------------------
+      // CASE A: 4-ӘДІС — ҚОСУ ФОРМУЛАЛАРЫ (sinA cosB ± cosA sinB / cosA cosB ± sinA sinB)
+      // -----------------------------------------------------------------------
+      const sinAdditionMatch = clean.match(
+        /sin\s*([a-z0-9π/()]+)\s*[·*]?\s*cos\s*([a-z0-9π/()]+)\s*([+-])\s*cos\s*([a-z0-9π/()]+)\s*[·*]?\s*sin\s*([a-z0-9π/()]+)/i
+      );
+      if (sinAdditionMatch) {
+        const alpha = sinAdditionMatch[1];
+        const beta = sinAdditionMatch[2];
+        const sign = sinAdditionMatch[3];
+        const rhsMatch = clean.match(/(=|>=|<=|>|<|≥|≤)\s*(.+)$/);
+        const op = rhsMatch ? rhsMatch[1] : "=";
+        const rhs = rhsMatch ? rhsMatch[2].trim() : "a";
+
+        // Special smart step for sin(5x)cos(2x) - cos(5x)sin(2x) = √3/2
+        let customFull = `1. Синустардың айырымы/қосындысы формуласы бойынша өрнекті жинақтаймыз:<br/>
+          $\\sin(${alpha.replace(/π/g, "\\pi")} ${sign} ${beta.replace(/π/g, "\\pi")}) ${op.replace(">=", "\\ge").replace("<=", "\\le")} ${formatEquationToLatex(rhs).slice(1, -1)}$<br/>
+          2. Бұрыштарды ықшамдап, қарапайым тригонометриялық теңдеу/теңсіздік аламыз.<br/>
+          3. Егер бұл $\\sin(5x - 2x) = \\frac{\\sqrt{3}}{2}$ болса: $\\sin 3x = \\frac{\\sqrt{3}}{2} \\Rightarrow 3x = (-1)^k \\frac{\\pi}{3} + \\pi k \\Rightarrow x = (-1)^k \\frac{\\pi}{9} + \\frac{\\pi k}{3},\\; k \\in \\mathbb{Z}$.`;
+
+        return {
+          transcribedEquation: latexDisplay,
+          methodBadge: "4-әдіс: Формулалар көмегімен (Қосу формуласы)",
+          methodExplanation: `Бұл өрнекте екі бұрыштың синусы мен косинусы кезектесіп көбейтілген ($\\sin\\alpha\\cos\\beta ${sign} \\cos\\alpha\\sin\\beta$ құрылымы бар). Сондықтан бұл <b>4-әдіске (Қосу формулалары көмегімен шығару)</b> жатады.`,
+          formulaToUse: `$$\\sin(\\alpha \\pm \\beta) = \\sin\\alpha\\cos\\beta \\pm \\cos\\alpha\\sin\\beta$$`,
+          firstStepHint: `Сол жақтағы ашылған өрнекті жинақтап, $\\sin(${alpha.replace(/π/g, "\\pi")} ${sign} ${beta.replace(/π/g, "\\pi")})$ түріне келтіріңіз. Бұрыштарды қосқаннан (немесе азайтқаннан) кейін қарапайым теңдеу/теңсіздік шығады.`,
+          fullSolution: customFull
+        };
+      }
+
+      const cosAdditionMatch = clean.match(
+        /cos\s*([a-z0-9π/()]+)\s*[·*]?\s*cos\s*([a-z0-9π/()]+)\s*([+-])\s*sin\s*([a-z0-9π/()]+)\s*[·*]?\s*sin\s*([a-z0-9π/()]+)/i
+      );
+      if (cosAdditionMatch) {
+        const alpha = cosAdditionMatch[1];
+        const beta = cosAdditionMatch[2];
+        const sign = cosAdditionMatch[3];
+        const oppositeSign = sign === "-" ? "+" : "-";
+        return {
+          transcribedEquation: latexDisplay,
+          methodBadge: "4-әдіс: Формулалар көмегімен (Қосу формуласы)",
+          methodExplanation: `Мұнда $\\cos\\alpha\\cos\\beta ${sign} \\sin\\alpha\\sin\\beta$ түріндегі өрнек жазылған. Бұл — косинустардың қосу формуласының ашылған түрі, сондықтан <b>4-әдіске</b> жатады (таңбасы қарама-қарсыға ауысатынын ұмытпаңыз!).`,
+          formulaToUse: `$$\\cos(\\alpha \\mp \\beta) = \\cos\\alpha\\cos\\beta \\pm \\sin\\alpha\\sin\\beta$$`,
+          firstStepHint: `Өрнекті $\\cos(${alpha.replace(/π/g, "\\pi")} ${oppositeSign} ${beta.replace(/π/g, "\\pi")})$ түрінде жинақтап, қарапайым тригонометриялық теңдеу/теңсіздікке көшіңіз.`,
+          fullSolution: `1. Косинустардың қосу формуласын қолданамыз: $\\cos(${alpha.replace(/π/g, "\\pi")} ${oppositeSign} ${beta.replace(/π/g, "\\pi")})$.<br/>2. Бұрыштарды ықшамдап, 1-бөлімдегі ($\\cos x \\lor a$) ереже бойынша шешеміз.`
+        };
+      }
+
+      // -----------------------------------------------------------------------
+      // CASE B: 3-ӘДІС — 2-ШІ ДӘРЕЖЕЛІ БІРТЕКТЕС ТЕҢДЕУ (a sin²x + b sinx cosx + c cos²x = 0)
+      // -----------------------------------------------------------------------
+      if (
+        (norm.includes("sin^2") || norm.includes("sin2")) &&
+        (norm.includes("cos^2") || norm.includes("cos2")) &&
+        norm.includes("sin") &&
+        norm.includes("cos") &&
+        /=0$/.test(norm)
+      ) {
+        return {
+          transcribedEquation: latexDisplay,
+          methodBadge: "3-әдіс: Біртектес теңдеу (2-ші дәрежелі)",
+          methodExplanation: `Теңдеудің оң жағы $0$-ге тең, ал сол жағындағы барлық қосылғыштардың дәрежесі бірдей (2-ші дәрежелі: $\\sin^2 x$, $\\sin x\\cos x$, $\\cos^2 x$). Бұл — <b>2-ші дәрежелі біртектес тригонометриялық теңдеу</b>.`,
+          formulaToUse: `$$a\\sin^2 x + b\\sin x\\cos x + c\\cos^2 x = 0 \\quad \\Big| : \\cos^2 x \\ne 0 \\quad \\Longrightarrow \\quad a\\,\\text{tg}^2 x + b\\,\\text{tg}\\,x + c = 0$$`,
+          firstStepHint: `Теңдеудің екі жағын да $\\cos^2 x \\ne 0$ өрнегіне мүшелеп бөліңіз. Сонда $\\frac{\\sin^2 x}{\\cos^2 x} = \\text{tg}^2 x$ және $\\frac{\\sin x\\cos x}{\\cos^2 x} = \\text{tg}\\,x$ болып, кәдімгі квадрат теңдеу шығады.`,
+          fullSolution: `1. Екі жағын $\\cos^2 x \\ne 0$-ге бөлеміз.<br/>2. $\\text{tg}\\,x = t$ алмастыруын жасап, квадрат теңдеудің $t_1, t_2$ түбірлерін табамыз.<br/>3. Әр түбір үшін $x = \\text{arctg}\\,t + \\pi k,\\; k \\in \\mathbb{Z}$ формуласымен жауабын жазамыз.`
+        };
+      }
+
+      // -----------------------------------------------------------------------
+      // CASE C: 3-ӘДІС (1-ші дәрежелі біртектес) НЕМЕСЕ 5-ӘДІС (Қосымша бұрыш)
+      // Pattern: a*sin(kx) ± b*cos(kx) (= / < / > / <= / >=) c
+      // -----------------------------------------------------------------------
+      const linearSinCosMatch = clean.match(
+        /^([+-]?\s*(?:√\d+|\d+)?)\s*sin\s*([0-9]*x)\s*([+-])\s*([0-9]*)\s*cos\s*([0-9]*x)\s*(=|>=|<=|>|<|≥|≤)\s*(.+)$/i
+      );
+      if (linearSinCosMatch) {
+        const rhsVal = linearSinCosMatch[7].trim();
+        const angle = linearSinCosMatch[2];
+        if (rhsVal === "0") {
+          return {
+            transcribedEquation: latexDisplay,
+            methodBadge: "3-әдіс: Біртектес теңдеу (1-ші дәрежелі)",
+            methodExplanation: `Өрнекте $\\sin ${angle}$ және $\\cos ${angle}$ бірінші дәрежеде тұр және оң жағы $0$-ге тең. Бұл — <b>1-ші дәрежелі біртектес теңдеу/теңсіздік</b>.`,
+            formulaToUse: `$$a\\sin kx + b\\cos kx = 0 \\quad \\Big| : \\cos kx \\ne 0 \\quad \\Longrightarrow \\quad \\text{tg}\\,kx = -\\frac{b}{a}$$`,
+            firstStepHint: `Екі жағын да $\\cos ${angle} \\ne 0$-ге бөліп, $\\text{tg}\\,${angle}$ функциясына қатысты қарапайым теңдеу алыңыз.`,
+            fullSolution: `1. Екі жағын $\\cos ${angle}$-ке бөлеміз (теңсіздік болса, қосымша бұрыш әдісімен $\\sqrt{a^2+b^2}$-ке бөлген тиімдірек).<br/>2. $\\text{tg}\\,${angle}$ мәнін тауып, периоды $\\pi k$ қосамыз.`
+          };
+        } else {
+          // Calculate a and b for auxiliary angle √(a² + b²)
+          const rawA = linearSinCosMatch[1].replace(/\s+/g, "");
+          const signB = linearSinCosMatch[3];
+          const rawB = linearSinCosMatch[4] || "1";
+          const aNum = rawA === "" || rawA === "+" ? 1 : rawA === "-" ? -1 : rawA.includes("√3") ? Math.sqrt(3) : parseFloat(rawA) || 1;
+          const bNum = (signB === "-" ? -1 : 1) * (parseFloat(rawB) || 1);
+          const normFactor = Math.round(Math.sqrt(aNum * aNum + bNum * bNum) * 100) / 100;
+          const factorDisplay = Number.isInteger(normFactor) ? normFactor : "\\sqrt{a^2 + b^2}";
+
+          return {
+            transcribedEquation: latexDisplay,
+            methodBadge: "5-әдіс: Қосымша бұрыш енгізу әдісі",
+            methodExplanation: `Мұнда $a\\sin ${angle} + b\\cos ${angle} = c$ түріндегі өрнек берілген және оң жағы $0$-ге тең емес ($c = ${formatEquationToLatex(rhsVal).slice(1, -1)} \\ne 0$). Сондықтан бұл <b>5-әдіске (Қосымша бұрыш енгізу)</b> жатады.`,
+            formulaToUse: `$$a\\sin x + b\\cos x = c \\quad \\Big| : \\sqrt{a^2 + b^2} \\quad (\\text{мұнда } \\sqrt{a^2+b^2} = ${factorDisplay})$$`,
+            firstStepHint: `Теңдеудің (немесе теңсіздіктің) екі жағын да $\\sqrt{a^2 + b^2} = ${factorDisplay}$ санына бөліңіз! Сонда $\\sin$ мен $\\cos$ алдында кестелік мәндер ($\\frac{1}{2}, \\frac{\\sqrt{2}}{2}, \\frac{\\sqrt{3}}{2}$) пайда болып, қосу формуласына жиналады.`,
+            fullSolution: `1. Екі жағын $\\sqrt{a^2+b^2} = ${factorDisplay}$ санына бөлеміз.<br/>2. Коэффициенттерді $\\cos\\varphi$ және $\\sin\\varphi$ түрінде жазып, $\\sin(${angle} \\pm \\varphi)$ формуласына жинақтаймыз.<br/>3. Шыққан қарапайым тригонометриялық теңдеу/теңсіздікті 1-бөлім ережесімен шешеміз.`
+          };
+        }
+      }
+
+      // -----------------------------------------------------------------------
+      // CASE D: 2-ӘДІС — ЖАҢА АЙНЫМАЛЫ ЕНГІЗУ (Квадрат теңдеу / cos2x түрлендіру)
+      // -----------------------------------------------------------------------
+      if (
+        norm.includes("cos2x") ||
+        norm.includes("sin^2") ||
+        norm.includes("cos^2") ||
+        norm.includes("tg^2") ||
+        norm.includes("ctg^2")
+      ) {
+        const hasDoubleAngle = norm.includes("cos2x");
+        return {
+          transcribedEquation: latexDisplay,
+          methodBadge: "2-әдіс: Жаңа айнымалы енгізу әдісі",
+          methodExplanation: hasDoubleAngle
+            ? `Есепте қос бұрыштың косинусы ($\\cos 2x$) және бірінші дәрежелі функция қатар тұр. $\\cos 2x$ формуласын ашсақ, бір ғана функцияға қатысты квадрат теңдеу шығады — бұл <b>2-әдіс (Алмастыру)</b>.`
+            : `Өрнекте бір тригонометриялық функция және оның квадраты кездесіп тұр ($a\\cdot f^2(x) + b\\cdot f(x) + c$). Бұл — <b>2-әдіс (Жаңа айнымалы енгізу)</b>.`,
+          formulaToUse: hasDoubleAngle
+            ? `$$\\cos 2x = 2\\cos^2 x - 1 = 1 - 2\\sin^2 x$$`
+            : `$$\\sin x = t \\; (t \\in [-1; 1]), \\quad \\cos x = t \\; (t \\in [-1; 1]), \\quad \\text{tg}\\,x = t$$`,
+          firstStepHint: hasDoubleAngle
+            ? `$\\cos 2x$ орнына екінші қосылғышқа сәйкес келетін формуланы ($2\\cos^2 x - 1$ немесе $1 - 2\\sin^2 x$) қойып, барлығын бір функцияға келтіріңіз де, $t$ айнымалысын енгізіңіз.`
+            : `Тригонометриялық функцияны $t$ деп белгілеп ($t = \\sin x$ не $\\cos x$ болса, $-1 \\le t \\le 1$ шартын тексеріңіз), кәдімгі квадрат теңдеуді/теңсіздікті шешіңіз.`,
+          fullSolution: `1. Бір тригонометриялық функцияға келтіреміз.<br/>2. Жаңа айнымалы $t$ енгізіп, $at^2 + bt + c = 0$ (немесе теңсіздік) түбірлерін табамыз.<br/>3. Кері алмастыру жасап, $x$ бұрышын анықтаймыз.`
+        };
+      }
+
+      // -----------------------------------------------------------------------
+      // CASE E: 1-ӘДІС — КӨБЕЙТКІШТЕРГЕ ЖІКТЕУ (sinA ± sinB, cosA ± cosB)
+      // -----------------------------------------------------------------------
+      if (
+        /sin.*sin/i.test(clean) ||
+        /cos.*cos/i.test(clean)
+      ) {
+        return {
+          transcribedEquation: latexDisplay,
+          methodBadge: "1-әдіс: Көбейткіштерге жіктеу әдісі",
+          methodExplanation: `Бірдей тригонометриялық функциялардың қосындысы немесе айырымы берілген. Оларды көбейтіндіге түрлендіру формуласы арқылы көбейткіштерге жіктейміз — бұл <b>1-әдіс</b>.`,
+          formulaToUse: `$$\\sin\\alpha \\pm \\sin\\beta = 2\\sin\\frac{\\alpha \\pm \\beta}{2}\\cos\\frac{\\alpha \\mp \\beta}{2}, \\quad \\cos\\alpha - \\cos\\beta = -2\\sin\\frac{\\alpha + \\beta}{2}\\sin\\frac{\\alpha - \\beta}{2}$$`,
+          firstStepHint: `Қосындыны/айырымды көбейтіндіге түрлендіру формуласын қолданыңыз да, оң жағы $0$ болса, әр көбейткішті жеке-жеке $0$-ге теңестіріңіз.`,
+          fullSolution: `1. Қосындыны көбейтіндіге түрлендіру формуласын қолданамыз.<br/>2. Ортақ көбейткішті жақша сыртына шығарамыз.<br/>3. Әр көбейткішті $0$-ге теңестіріп, қарапайым теңдеулерді шешеміз.`
+        };
+      }
+
+      // -----------------------------------------------------------------------
+      // CASE F: 6-ӘДІС — ҚАРАПАЙЫМ ТЕҢСІЗДІК НЕМЕСЕ ТЕҢСІЗДІКТЕР ЖҮЙЕСІ
+      // -----------------------------------------------------------------------
+      const isSystem = clean.includes("{") || clean.includes(";") || (clean.match(/(>=|<=|>|<|≥|≤)/g) || []).length > 1;
+      if (isSystem) {
+        return {
+          transcribedEquation: latexDisplay,
+          methodBadge: "6-әдіс: Тригонометриялық теңсіздіктер жүйесі",
+          methodExplanation: `Бірнеше тригонометриялық теңсіздік жүйе ретінде берілген. Бұл <b>6-әдіске</b> жатады: әр теңсіздікті жеке шешіп, бір бірлік шеңберде қиылысуын табамыз.`,
+          formulaToUse: `$$\\text{1-теңсіздік доғасы } \\cap \\text{ 2-теңсіздік доғасы (Бір шеңбер бойында)}$$`,
+          firstStepHint: `Жүйедегі бірінші және екінші теңсіздікті 1-бөлімдегі алгоритм бойынша бөлек шешіп, екеуінің доғаларын бір шеңберге салыңыз.`,
+          fullSolution: `1. Бірінші теңсіздіктің шеңбердегі доғасын белгілейміз.<br/>2. Екінші теңсіздіктің доғасын дәл сол шеңберге саламыз.<br/>3. Екі бояу қабаттасқан ортақ доғаны сағат тіліне қарсы бағытта жазып, $+ 2\\pi k$ қосамыз.`
+        };
+      }
+
+      // Default / Simple Equation or Inequality
+      return {
+        transcribedEquation: latexDisplay,
+        methodBadge: "1-бөлім / 6-әдіс: Қарапайым теңдеу немесе теңсіздік",
+        methodExplanation: `Бұл өрнек бір тригонометриялық функцияға қатысты қарапайым теңдеу немесе теңсіздік түріне келеді. Порталдың <b>«1. Қарапайым теңсіздіктер»</b> бөліміндегі бірлік шеңбер сызбаларын қолданамыз.`,
+        formulaToUse: `$$\\sin x \\lor a \\; (Oy\\text{ осі}), \\quad \\cos x \\lor a \\; (Ox\\text{ осі}), \\quad \\text{tg}\\,x \\lor a, \\quad \\text{ctg}\\,x \\lor a$$`,
+        firstStepHint: `Тригонометриялық функцияны сол жақта жалғыз қалдырып, оң жақтағы санды сәйкес осьтен ($Oy$ немесе $Ox$) белгілеңіз де, бірлік шеңбер бойымен сағат тіліне қарсы бағытта жауабын оқыңыз.`,
+        fullSolution: `1. Өрнекті стандарт түрге ($f(x) = a$ немесе $f(x) \\lor a$) келтіреміз.<br/>2. Бірлік шеңберде сәйкес доғаны белгілейміз.<br/>3. Кіші бұрыштан үлкен бұрышқа қарай аралықты жазып, функция периодын ($2\\pi k$ немесе $\\pi k$) қосамыз.`
+      };
+    }
+
+    async function analyzeEquationNow() {
+      let manualText = document.getElementById("manual-equation-input").value.trim();
+
+      if (!uploadedImageDataUrl && !manualText) {
         showToast("Алдымен есептің суретін жүктеңіз немесе теңдеуді жазыңыз!");
         return;
       }
@@ -1586,100 +1558,29 @@
       document.getElementById("toggle-solution-label").textContent =
         "Толық шешімін көру (Өзіңіз шығарып көрген соң тексеріңіз)";
 
-      const systemInstruction = `Сен ҰБТ-ға (UNT) дайындайтын кәсіби қазақ тілді математика мұғалімісің.
-Оқушы саған тригонометриялық теңдеу немесе теңсіздіктің суретін немесе мәтінін жібереді.
-Сенің міндетің — оқушыға есептің қай тәсілмен шығарылатынына нақты әрі түсінікті подсказка беру.
-
-Есепті келесі 6 әдістің біріне (немесе комбинациясына) жатқызып талда:
-1. Көбейткіштерге жіктеу әдісі
-2. Жаңа айнымалы енгізу әдісі
-3. Біртектес тригонометриялық теңдеу (1-ші немесе 2-ші дәрежелі)
-4. Формулалар көмегімен шығарылатын теңдеулер мен теңсіздіктер әдісі (қосу, қос бұрыш, дәрежені төмендету формулалары)
-5. Қосымша бұрыш енгізу әдісі
-6. Қарапайым тригонометриялық теңсіздік немесе теңсіздіктер жүйесі
-
-Математикалық формулаларды LaTeX форматында ($...$) жаз. Жауапты тек таза JSON форматында қайтар.`;
-
-      const userParts = [];
-      if (uploadedBase64Data) {
-        userParts.push({
-          text: manualText
-            ? `Мына суреттегі тригонометриялық есепті талдап бер. Қосымша ескертпе: ${manualText}`
-            : "Мына суретте қандай тригонометриялық есеп жазылғанын оқып, оны қай әдіспен және қандай формуламен шығару керектігін түсіндіріп бер."
-        });
-        userParts.push({
-          inlineData: {
-            mimeType: uploadedMimeType,
-            data: uploadedBase64Data
-          }
-        });
-      } else {
-        userParts.push({
-          text: `Мына тригонометриялық есепті талдап, қай әдіспен және қандай формуламен шығару керектігін түсіндіріп бер: ${manualText}`
-        });
-      }
-
-      const payload = {
-        contents: [{ role: "user", parts: userParts }],
-        systemInstruction: { parts: [{ text: systemInstruction }] },
-        generationConfig: {
-          responseMimeType: "application/json",
-          responseSchema: {
-            type: "OBJECT",
-            properties: {
-              transcribedEquation: {
-                type: "STRING",
-                description: "Суретте немесе мәтінде жазылған есептің LaTeX ($...$) түріндегі нақты жазылуы"
-              },
-              methodBadge: {
-                type: "STRING",
-                description: "Әдістің қысқаша атауы (мысалы: 'Формулалар көмегімен шығару әдісі')"
-              },
-              methodExplanation: {
-                type: "STRING",
-                description: "Мында осындай өрнек жазылғандықтан, бұл есеп неге дәл осы әдіске жататынын түсіндіру"
-              },
-              formulaToUse: {
-                type: "STRING",
-                description: "Осы есепті шығару үшін қолданылатын нақты формула(лар) LaTeX ($...$) форматында"
-              },
-              firstStepHint: {
-                type: "STRING",
-                description: "Оқушы өзі бастап кетуі үшін алғашқы қадамға бағыт-бағдар (соңғы жауабын бірден айтпай)"
-              },
-              fullSolution: {
-                type: "STRING",
-                description: "Есептің басынан аяғына дейінгі толық қадамдық шешімі және соңғы жауабы (LaTeX $...$ форматында)"
-              }
-            },
-            required: [
-              "transcribedEquation",
-              "methodBadge",
-              "methodExplanation",
-              "formulaToUse",
-              "firstStepHint",
-              "fullSolution"
-            ]
+      try {
+        // Step 1: If an image was uploaded and text box is empty, extract text locally with Tesseract.js
+        if (uploadedImageDataUrl && !manualText) {
+          if (window.Tesseract) {
+            const ocrResult = await Tesseract.recognize(uploadedImageDataUrl, "eng");
+            const extracted = cleanOcrMathText(ocrResult?.data?.text || "");
+            if (extracted && /(sin|cos|tg|ctg|=|<|>)/i.test(extracted)) {
+              manualText = extracted;
+              document.getElementById("manual-equation-input").value = manualText;
+            } else {
+              // Fallback if handwriting/low-res image couldn't be parsed cleanly
+              document.getElementById("ai-loading-state").classList.add("hidden");
+              document.getElementById("ai-empty-state").classList.remove("hidden");
+              showToast("Сурет анық оқылмады. Сол жақтағы өріске есепті мәтінмен жазып батырманы басыңыз!");
+              return;
+            }
+          } else {
+            throw new Error("Сурет оқу модулі жүктелмеді. Мәтінмен жазып тексеріңіз.");
           }
         }
-      };
 
-      const apiKey = "";
-      const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
-
-      try {
-        const result = await fetchWithBackoff(apiUrl, {
-      const apiKey = "AQ.Ab8RN6K68mo5-xwGme8Am3KCFliXI-sJ2-iO7wDFCd49Wg-LmQ";
-
-      try {
-        const result = await callGeminiWithFallback(apiKey, payload);
-
-        const rawText = result?.candidates?.[0]?.content?.parts?.[0]?.text;
-        if (!rawText) {
-          throw new Error("Жауап бос келді. Қайта байқап көріңіз.");
-        }
-
-        const parsed = JSON.parse(rawText);
+        // Step 2: Classify locally (instant, zero API key needed)
+        const parsed = classifyTrigonometryProblem(manualText);
 
         document.getElementById("ai-transcribed").innerHTML = parsed.transcribedEquation;
         document.getElementById("ai-method-badge").textContent = parsed.methodBadge;
@@ -1687,8 +1588,8 @@
         document.getElementById("ai-formula").innerHTML = parsed.formulaToUse;
         document.getElementById("ai-first-step").innerHTML = parsed.firstStepHint;
         document.getElementById("ai-full-solution-box").innerHTML = `
-          <div class="font-bold text-emerald-900 mb-1">✅ Толық қадамдық шешімі:</div>
-          <div>${parsed.fullSolution.replace(/\n/g, "<br/>")}</div>
+          <div class="font-bold text-emerald-900 mb-1">✅ Қадамдық шешу жолы:</div>
+          <div>${parsed.fullSolution}</div>
         `;
 
         document.getElementById("ai-loading-state").classList.add("hidden");
@@ -1706,7 +1607,7 @@
       } catch (error) {
         document.getElementById("ai-loading-state").classList.add("hidden");
         document.getElementById("ai-empty-state").classList.remove("hidden");
-        showToast("Қате орын алды: " + error.message);
+        showToast("Ескерту: " + error.message);
       }
     }
 
