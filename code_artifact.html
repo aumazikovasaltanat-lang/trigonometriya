@@ -1,0 +1,1700 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Тригонометрия Көмекшісі — ҰБТ-ға дайындық порталы</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <!-- KaTeX for crisp math rendering -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}]});"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          },
+          colors: {
+            royal: {
+              50: '#eff6ff',
+              100: '#dbeafe',
+              200: '#bfdbfe',
+              500: '#3b82f6',
+              600: '#2563eb',
+              700: '#1d4ed8',
+              800: '#1e40af',
+              900: '#1e3a8a',
+            }
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f8fafc;
+      color: #0f172a;
+      overflow-x: hidden;
+    }
+    .academic-card {
+      background: #ffffff;
+      border: 2px solid #1d4ed8;
+      border-radius: 1rem;
+      box-shadow: 0 4px 20px -2px rgba(29, 78, 216, 0.08);
+    }
+    .academic-subcard {
+      background: #ffffff;
+      border: 1.5px solid #93c5fd;
+      border-radius: 0.875rem;
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
+    }
+    .academic-subcard:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px -5px rgba(29, 78, 216, 0.14);
+    }
+    .tab-btn-active {
+      background-color: #1d4ed8;
+      color: #ffffff;
+      box-shadow: 0 4px 12px rgba(29, 78, 216, 0.3);
+    }
+    .tab-btn-inactive {
+      background-color: #ffffff;
+      color: #1e3a8a;
+      border: 1.5px solid #bfdbfe;
+    }
+    .tab-btn-inactive:hover {
+      background-color: #eff6ff;
+    }
+    .func-btn-active {
+      background-color: #1d4ed8;
+      color: #ffffff;
+      border-color: #1d4ed8;
+    }
+    .func-btn-inactive {
+      background-color: #eff6ff;
+      color: #1d4ed8;
+      border-color: #bfdbfe;
+    }
+    .func-btn-inactive:hover {
+      background-color: #dbeafe;
+    }
+    /* Custom scrollbar for horizontal math formulas on narrow phones */
+    .math-scroll::-webkit-scrollbar {
+      height: 4px;
+    }
+    .math-scroll::-webkit-scrollbar-thumb {
+      background: #93c5fd;
+      border-radius: 9999px;
+    }
+    .katex {
+      font-size: 1.05em;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+  <!-- Top Header Banner -->
+  <header class="bg-gradient-to-r from-royal-800 via-royal-700 to-blue-600 text-white shadow-lg">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <div>
+          <div class="inline-flex items-center gap-2 bg-white/15 backdrop-blur-sm px-3 py-1 rounded-full text-xs sm:text-sm font-semibold tracking-wide mb-2">
+            <span>🎓 ҰБТ Математика</span>
+            <span>•</span>
+            <span>Тегін онлайн анықтамалық</span>
+          </div>
+          <h1 class="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight leading-tight">
+            Тригонометрия Көмекшісі — ҰБТ-ға дайындық порталы
+          </h1>
+          <p class="text-blue-100 text-sm sm:text-base mt-1.5 font-medium">
+            Формулалар, бірлік шеңбер, шығару әдістері және ЖИ-подсказка
+          </p>
+        </div>
+
+        <!-- Quick Share / Copy Link Button for Students -->
+        <div class="flex items-center gap-2 self-start md:self-center">
+          <button onclick="copyShareMessage()" class="inline-flex items-center gap-2 bg-white text-royal-700 hover:bg-blue-50 font-semibold text-xs sm:text-sm px-4 py-2.5 rounded-xl shadow transition active:scale-95">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+            </svg>
+            <span>Сыныптастармен бөлісу</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Main Navigation Tabs -->
+      <nav class="grid grid-cols-1 sm:grid-cols-3 gap-2.5 mt-6" aria-label="Негізгі бөлімдер">
+        <button id="main-tab-1" onclick="switchMainTab(1)" class="tab-btn-active flex items-center justify-center gap-2 px-4 py-3.5 rounded-xl font-bold text-sm sm:text-base transition cursor-pointer">
+          <span class="text-lg">⭕</span>
+          <span>1. Қарапайым теңсіздіктер</span>
+        </button>
+        <button id="main-tab-2" onclick="switchMainTab(2)" class="tab-btn-inactive flex items-center justify-center gap-2 px-4 py-3.5 rounded-xl font-bold text-sm sm:text-base transition cursor-pointer">
+          <span class="text-lg">📐</span>
+          <span>2. Шығару әдістері (6 тәсіл)</span>
+        </button>
+        <button id="main-tab-3" onclick="switchMainTab(3)" class="tab-btn-inactive flex items-center justify-center gap-2 px-4 py-3.5 rounded-xl font-bold text-sm sm:text-base transition cursor-pointer">
+          <span class="text-lg">📸</span>
+          <span>3. Сурет бойынша ЖИ-Подсказка</span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Toast Notification Banner (No alert() used) -->
+  <div id="toast-box" class="fixed bottom-5 right-5 z-50 hidden transform transition-all duration-300">
+    <div class="bg-slate-900 text-white px-4 py-3 rounded-xl shadow-xl border border-blue-400 flex items-center gap-2.5 text-sm font-medium">
+      <span class="text-blue-400 text-lg">✓</span>
+      <span id="toast-text">Хабарлама</span>
+    </div>
+  </div>
+
+  <!-- Main Content Container -->
+  <main class="flex-1 max-w-6xl w-full mx-auto px-4 sm:px-6 py-6 sm:py-8">
+
+    <!-- ===================================================================== -->
+    <!-- TAB 1: ҚАРАПАЙЫМ ТРИГОНОМЕТРИЯЛЫҚ ТЕҢСІЗДІКТЕР (БІРЛІК ШЕҢБЕРМЕН)      -->
+    <!-- ===================================================================== -->
+    <section id="section-tab-1" class="space-y-6">
+      <!-- Function Selector Bar -->
+      <div class="academic-card p-4 sm:p-6">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
+          <div>
+            <span class="inline-block bg-royal-700 text-white text-xs font-bold px-2.5 py-1 rounded-md uppercase tracking-wider">Бөлім 4.1</span>
+            <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900 mt-1">
+              Қарапайым тригонометриялық теңсіздіктер
+            </h2>
+            <p class="text-slate-600 text-sm">Функцияны таңдап, шешу алгоритмі мен бірлік шеңбердегі ширектерді қараңыз:</p>
+          </div>
+        </div>
+
+        <!-- 4 Sub-tabs: sin x, cos x, tg x, ctg x -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+          <button id="func-btn-sin" onclick="selectTrigFunc('sin')" class="func-btn-active border-2 py-3 px-4 rounded-xl font-extrabold text-base sm:text-lg transition cursor-pointer shadow-sm">
+            $\sin x \lor a$
+          </button>
+          <button id="func-btn-cos" onclick="selectTrigFunc('cos')" class="func-btn-inactive border-2 py-3 px-4 rounded-xl font-extrabold text-base sm:text-lg transition cursor-pointer">
+            $\cos x \lor a$
+          </button>
+          <button id="func-btn-tg" onclick="selectTrigFunc('tg')" class="func-btn-inactive border-2 py-3 px-4 rounded-xl font-extrabold text-base sm:text-lg transition cursor-pointer">
+            $\text{tg}\,x \lor a$
+          </button>
+          <button id="func-btn-ctg" onclick="selectTrigFunc('ctg')" class="func-btn-inactive border-2 py-3 px-4 rounded-xl font-extrabold text-base sm:text-lg transition cursor-pointer">
+            $\text{ctg}\,x \lor a$
+          </button>
+        </div>
+      </div>
+
+      <!-- Dynamic Content Container for Selected Trig Function -->
+      <div id="trig-func-content" class="space-y-6">
+        <!-- Populated via JS -->
+      </div>
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- TAB 2: ТЕҢДЕУЛЕР МЕН ТЕҢСІЗДІКТЕРДІ ШЫҒАРУ ӘДІСТЕРІ (6 ТӘСІЛ)           -->
+    <!-- ===================================================================== -->
+    <section id="section-tab-2" class="hidden space-y-6">
+      <div class="academic-card p-5 sm:p-6 bg-gradient-to-br from-white to-blue-50/60">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div>
+            <span class="inline-block bg-royal-700 text-white text-xs font-bold px-2.5 py-1 rounded-md uppercase tracking-wider">Толық нұсқаулық</span>
+            <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900 mt-1">
+              Теңдеулер мен теңсіздіктерді шығару әдістері
+            </h2>
+            <p class="text-slate-600 text-sm mt-1">
+              Есептің қай әдіске жататынын қалай тез ажыратуға болады? Әр әдістің белгісі, формуласы және толық мысалы төменде берілген.
+            </p>
+          </div>
+          <div class="flex gap-2">
+            <button onclick="toggleAllMethods(true)" class="text-xs font-semibold bg-royal-100 text-royal-800 hover:bg-royal-200 px-3 py-2 rounded-lg transition">
+              Барлығын ашу
+            </button>
+            <button onclick="toggleAllMethods(false)" class="text-xs font-semibold bg-slate-100 text-slate-700 hover:bg-slate-200 px-3 py-2 rounded-lg transition">
+              Жинақтау
+            </button>
+          </div>
+        </div>
+
+        <!-- Quick Cheat-Sheet Filter Pills -->
+        <div class="flex flex-wrap gap-2 mt-4 pt-4 border-t border-blue-100">
+          <a href="#method-1" class="text-xs sm:text-sm font-semibold bg-white border border-blue-200 text-royal-700 hover:bg-royal-700 hover:text-white px-3 py-1.5 rounded-full transition">1. Көбейткіштерге жіктеу</a>
+          <a href="#method-2" class="text-xs sm:text-sm font-semibold bg-white border border-blue-200 text-royal-700 hover:bg-royal-700 hover:text-white px-3 py-1.5 rounded-full transition">2. Жаңа айнымалы енгізу</a>
+          <a href="#method-3" class="text-xs sm:text-sm font-semibold bg-white border border-blue-200 text-royal-700 hover:bg-royal-700 hover:text-white px-3 py-1.5 rounded-full transition">3. Біртектес теңдеу</a>
+          <a href="#method-4" class="text-xs sm:text-sm font-semibold bg-white border border-blue-200 text-royal-700 hover:bg-royal-700 hover:text-white px-3 py-1.5 rounded-full transition">4. Формулалар көмегімен</a>
+          <a href="#method-5" class="text-xs sm:text-sm font-semibold bg-white border border-blue-200 text-royal-700 hover:bg-royal-700 hover:text-white px-3 py-1.5 rounded-full transition">5. Қосымша бұрыш енгізу</a>
+          <a href="#method-6" class="text-xs sm:text-sm font-semibold bg-white border border-blue-200 text-royal-700 hover:bg-royal-700 hover:text-white px-3 py-1.5 rounded-full transition">6. Теңсіздіктер жүйесі</a>
+        </div>
+      </div>
+
+      <!-- Method Cards Container -->
+      <div id="methods-container" class="space-y-5">
+        <!-- Populated via JS for clean structure -->
+      </div>
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- TAB 3: СУРЕТ БОЙЫНША ЖИ-ПОДСКАЗКА (GEMINI AI IMAGE ANALYZER)          -->
+    <!-- ===================================================================== -->
+    <section id="section-tab-3" class="hidden space-y-6">
+      <div class="academic-card p-5 sm:p-7">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-blue-100 pb-4">
+          <div>
+            <div class="inline-flex items-center gap-1.5 bg-blue-100 text-royal-800 text-xs font-bold px-3 py-1 rounded-full">
+              <span>✨ Gemini AI Көмекші</span>
+            </div>
+            <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900 mt-1.5">
+              Есептің суретін жүктеп тәсілін анықтау
+            </h2>
+            <p class="text-slate-600 text-sm mt-1">
+              Теңдеу немесе теңсіздік суретін жүктеңіз (немесе мәтінмен жазыңыз). ЖИ есепті оқып, қай әдіске жататынын және қандай формула қолдану керектігін түсіндіріп береді!
+            </p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 mt-6">
+          <!-- Left Column: Image Upload + Manual Input + Quick Samples -->
+          <div class="lg:col-span-5 space-y-4">
+            <!-- Dropzone / File Upload -->
+            <div id="drop-zone" class="relative border-2 border-dashed border-royal-500 bg-blue-50/50 hover:bg-blue-50 rounded-2xl p-6 text-center transition cursor-pointer" onclick="document.getElementById('equation-image-input').click()">
+              <input type="file" id="equation-image-input" accept="image/*" class="hidden" onchange="handleImageUpload(event)" />
+
+              <div id="upload-placeholder" class="space-y-2.5">
+                <div class="w-14 h-14 mx-auto bg-royal-700 text-white rounded-2xl flex items-center justify-center shadow-md">
+                  <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </svg>
+                </div>
+                <p class="font-bold text-slate-800 text-base">Есептің суретін таңдаңыз немесе осында тастаңыз</p>
+                <p class="text-xs text-slate-500">Телефон камерасымен түсіруге немесе галереядан жүктеуге болады (PNG, JPG)</p>
+              </div>
+
+              <!-- Image Preview State -->
+              <div id="image-preview-wrapper" class="hidden space-y-3">
+                <img id="image-preview" src="" alt="Жүктелген есеп суреті" class="max-h-56 mx-auto rounded-xl border border-blue-200 shadow-sm object-contain bg-white" />
+                <div class="flex justify-center gap-2">
+                  <button type="button" onclick="event.stopPropagation(); clearUploadedImage();" class="text-xs font-semibold bg-red-50 text-red-600 hover:bg-red-100 px-3 py-1.5 rounded-lg border border-red-200 transition">
+                    ✕ Суретті өшіру
+                  </button>
+                  <button type="button" onclick="event.stopPropagation(); document.getElementById('equation-image-input').click();" class="text-xs font-semibold bg-white text-royal-700 hover:bg-blue-50 px-3 py-1.5 rounded-lg border border-blue-200 transition">
+                    ↻ Басқа сурет
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Or Manual Equation Input -->
+            <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200 space-y-2.5">
+              <label for="manual-equation-input" class="block text-xs font-bold text-slate-700 uppercase tracking-wider">
+                Немесе есепті мәтінмен жазыңыз:
+              </label>
+              <input type="text" id="manual-equation-input" placeholder="Мысалы: cos2x + 4cosx = 5 немесе √3sinx - cosx < √2" class="w-full px-3.5 py-2.5 bg-white border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-royal-600 focus:border-transparent" />
+
+              <!-- 3 Quick Sample Buttons for Instant Testing -->
+              <div class="pt-1">
+                <p class="text-xs font-semibold text-slate-500 mb-1.5">Жылдам тексеру үшін мысал таңдаңыз:</p>
+                <div class="flex flex-wrap gap-1.5">
+                  <button type="button" onclick="setSampleEquation('sin 4x · cos(π/6) + sin(π/6) · cos 4x ≥ 1/2')" class="text-xs bg-white hover:bg-royal-50 text-royal-700 border border-blue-200 px-2.5 py-1.5 rounded-lg font-medium transition">
+                    Мысал 1: Қосу формуласы
+                  </button>
+                  <button type="button" onclick="setSampleEquation('2sin²x - 3sinx cosx + cos²x = 0')" class="text-xs bg-white hover:bg-royal-50 text-royal-700 border border-blue-200 px-2.5 py-1.5 rounded-lg font-medium transition">
+                    Мысал 2: Біртектес теңдеу
+                  </button>
+                  <button type="button" onclick="setSampleEquation('√3 sinx - cosx < √2')" class="text-xs bg-white hover:bg-royal-50 text-royal-700 border border-blue-200 px-2.5 py-1.5 rounded-lg font-medium transition">
+                    Мысал 3: Қосымша бұрыш
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Analyze Button -->
+            <button id="analyze-btn" onclick="analyzeWithGemini()" class="w-full py-3.5 px-5 bg-royal-700 hover:bg-royal-800 text-white font-extrabold text-base rounded-xl shadow-lg shadow-blue-600/25 transition flex items-center justify-center gap-2 cursor-pointer active:scale-[0.99]">
+              <span>🔍 Тәсілін анықтау және Подсказка алу</span>
+            </button>
+          </div>
+
+          <!-- Right Column: AI Response Result Area -->
+          <div class="lg:col-span-7">
+            <!-- Initial Empty State -->
+            <div id="ai-empty-state" class="h-full min-h-[320px] bg-slate-50/80 border-2 border-slate-200 rounded-2xl p-6 flex flex-col items-center justify-center text-center">
+              <div class="w-16 h-16 bg-blue-100 text-royal-700 rounded-2xl flex items-center justify-center text-3xl mb-3">
+                🤖
+              </div>
+              <h3 class="font-bold text-slate-800 text-lg">ЖИ-Көмекші дайын тұр!</h3>
+              <p class="text-slate-500 text-sm max-w-md mt-1.5 leading-relaxed">
+                Сол жақтан есептің фотосын жүктеңіз немесе дайын мысалдардың бірін басыңыз. ЖИ сізге:
+              </p>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-left text-xs font-medium text-slate-700 mt-4 w-full max-w-md">
+                <div class="bg-white p-2.5 rounded-xl border border-blue-100">✅ 1. Есепте не жазылғанын оқиды</div>
+                <div class="bg-white p-2.5 rounded-xl border border-blue-100">🎯 2. Қай әдіске жататынын айтады</div>
+                <div class="bg-white p-2.5 rounded-xl border border-blue-100">📐 3. Қажетті формуланы көрсетеді</div>
+                <div class="bg-white p-2.5 rounded-xl border border-blue-100">💡 4. Алғашқы қадамға подсказка береді</div>
+              </div>
+            </div>
+
+            <!-- Loading State -->
+            <div id="ai-loading-state" class="hidden h-full min-h-[320px] bg-blue-50/60 border-2 border-blue-200 rounded-2xl p-6 flex flex-col items-center justify-center text-center">
+              <div class="w-12 h-12 border-4 border-royal-200 border-t-royal-700 rounded-full animate-spin mb-4"></div>
+              <h3 class="font-bold text-royal-900 text-lg">Есеп талдануда...</h3>
+              <p class="text-royal-700 text-sm mt-1">ЖИ есептің құрылымын тексеріп, ең тиімді шығару тәсілін таңдап жатыр.</p>
+            </div>
+
+            <!-- Result Card State -->
+            <div id="ai-result-state" class="hidden space-y-4">
+              <div class="bg-white border-2 border-royal-700 rounded-2xl overflow-hidden shadow-md">
+                <div class="bg-royal-700 text-white px-5 py-3.5 flex items-center justify-between">
+                  <span class="font-bold text-sm sm:text-base flex items-center gap-2">
+                    <span>💡 ЖИ-Талдау нәтижесі</span>
+                  </span>
+                  <span id="ai-method-badge" class="bg-white text-royal-800 text-xs font-extrabold px-3 py-1 rounded-full">
+                    Әдіс анықталды
+                  </span>
+                </div>
+
+                <div class="p-5 space-y-4">
+                  <!-- 1. Transcribed Equation -->
+                  <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200">
+                    <div class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">1. Есепте не жазылған:</div>
+                    <div id="ai-transcribed" class="font-bold text-slate-900 text-base sm:text-lg overflow-x-auto math-scroll"></div>
+                  </div>
+
+                  <!-- 2. Method Identification & Why -->
+                  <div class="bg-blue-50/70 p-4 rounded-xl border border-blue-200">
+                    <div class="text-xs font-bold text-royal-800 uppercase tracking-wider mb-1">2. Қай әдіске жатады және неге?</div>
+                    <div id="ai-method-explanation" class="text-slate-800 text-sm sm:text-base leading-relaxed"></div>
+                  </div>
+
+                  <!-- 3. Formula to Use -->
+                  <div class="bg-indigo-50/60 p-4 rounded-xl border border-indigo-200">
+                    <div class="text-xs font-bold text-indigo-800 uppercase tracking-wider mb-1">3. Қолданылатын негізгі формула:</div>
+                    <div id="ai-formula" class="text-slate-900 font-semibold text-sm sm:text-base overflow-x-auto math-scroll"></div>
+                  </div>
+
+                  <!-- 4. First Step Hint -->
+                  <div class="bg-amber-50 p-4 rounded-xl border border-amber-200">
+                    <div class="text-xs font-bold text-amber-800 uppercase tracking-wider mb-1">4. Алғашқы қадам подсказкасы:</div>
+                    <div id="ai-first-step" class="text-slate-800 text-sm sm:text-base leading-relaxed"></div>
+                  </div>
+
+                  <!-- Expandable Full Solution -->
+                  <div class="pt-1">
+                    <button type="button" onclick="toggleFullSolution()" id="toggle-solution-btn" class="w-full py-2.5 px-4 bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-sm rounded-xl transition flex items-center justify-center gap-2 cursor-pointer">
+                      <span id="toggle-solution-icon">👁️</span>
+                      <span id="toggle-solution-label">Толық шешімін көру (Өзіңіз шығарып көрген соң тексеріңіз)</span>
+                    </button>
+                    <div id="ai-full-solution-box" class="hidden mt-3 p-4 bg-emerald-50/70 border border-emerald-200 rounded-xl text-sm sm:text-base text-slate-800 space-y-2 leading-relaxed">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-white border-t border-blue-100 mt-12 py-6 px-4 text-center text-xs sm:text-sm text-slate-500">
+    <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
+      <p class="font-semibold text-slate-700">Тригонометрия Көмекшісі — ҰБТ-ға дайындық порталы</p>
+      <p>Оқушыларға арналған ашық білім беру ресурсы • Кез келген құрылғыда тегін жұмыс істейді</p>
+    </div>
+  </footer>
+
+  <!-- ======================================================================= -->
+  <!-- JAVASCRIPT: DATA, SVG UNIT CIRCLES, METHODS & GEMINI API INTEGRATION    -->
+  <!-- ======================================================================= -->
+  <script>
+    // =========================================================================
+    // 1. TAB 1 DATA: ҚАРАПАЙЫМ ТРИГОНОМЕТРИЯЛЫҚ ТЕҢСІЗДІКТЕР (SIN, COS, TG, CTG)
+    // =========================================================================
+    const trigInequalitiesData = {
+      sin: {
+        title: "sin x ∨ a түріндегі қарапайым теңсіздіктер",
+        badge: "Ордината осі (Oy)",
+        note: "",
+        algorithm: [
+          "Теңсіздікті стандарт түрге келтіреміз ($\\sin x \\ge a$, $\\sin x > a$, $\\sin x \\le a$ немесе $\\sin x < a$).",
+          "Ордината осінде ($Oy$) $a$ санын белгілеп, $Oy$ осіне перпендикуляр болатын $y = a$ түзуін жүргіземіз.",
+          "Шеңбер бойынан берілген теңсіздікті қанағаттандыратын доғаны белгілейміз (жоғарғы немесе төменгі доға).",
+          "Доғаның шеткі нүктелерінің айналу бұрышын анықтаймыз (сағат тіліне қарсы бағытта кіші бұрыштан үлкен бұрышқа қарай).",
+          "Жауапты сағат тіліне қарсы бағытта жазып, пайда болған қос теңсіздіктің екі жағына да функцияның периодын қосамыз (синустың периоды $2\\pi k, k \\in \\mathbb{Z}$)."
+        ],
+        cases: [
+          {
+            inequality: "\\sin x \\ge a",
+            interval: "x \\in [\\arcsin a + 2\\pi n;\\; \\pi - \\arcsin a + 2\\pi n]",
+            doubleIneq: "\\arcsin a + 2\\pi k \\le x \\le \\pi - \\arcsin a + 2\\pi k",
+            quadrantHint: "I және II ширектердегі жоғарғы доға",
+            svgType: "sin_ge_a"
+          },
+          {
+            inequality: "\\sin x \\ge -a",
+            interval: "x \\in [-\\arcsin a + 2\\pi n;\\; \\pi + \\arcsin a + 2\\pi n]",
+            doubleIneq: "-\\arcsin a + 2\\pi n \\le x \\le \\pi + \\arcsin a + 2\\pi n",
+            quadrantHint: "IV, I, II, III ширектерді қамтитын үлкен доға",
+            svgType: "sin_ge_nega"
+          },
+          {
+            inequality: "\\sin x \\le a",
+            interval: "x \\in [-(\\pi + \\arcsin a) + 2\\pi n;\\; \\arcsin a + 2\\pi n]",
+            doubleIneq: "-(\\pi + \\arcsin a) + 2\\pi n \\le x \\le \\arcsin a + 2\\pi n",
+            quadrantHint: "II, III, IV, I ширектерді қамтитын төменгі үлкен доға",
+            svgType: "sin_le_a"
+          },
+          {
+            inequality: "\\sin x \\le -a",
+            interval: "x \\in [-(\\pi - \\arcsin a) + 2\\pi n;\\; -\\arcsin a + 2\\pi n]",
+            doubleIneq: "-(\\pi - \\arcsin a) + 2\\pi n \\le x \\le -\\arcsin a + 2\\pi n",
+            quadrantHint: "III және IV ширектердегі төменгі доға",
+            svgType: "sin_le_nega"
+          }
+        ]
+      },
+      cos: {
+        title: "cos x ∨ a түріндегі қарапайым теңсіздіктер",
+        badge: "Абсцисса осі (Ox)",
+        note: "",
+        algorithm: [
+          "Теңсіздікті стандарт түрге келтіреміз ($\\cos x \\ge a$, $\\cos x > a$, $\\cos x \\le a$ немесе $\\cos x < a$).",
+          "Абсцисса осінде ($Ox$) $a$ санын белгілеп, $Ox$ осіне перпендикуляр болатын $x = a$ вертикаль түзуін жүргіземіз.",
+          "Шеңбер бойынан берілген теңсіздікті қанағаттандыратын доғаны белгілейміз (оң жақ немесе сол жақ доға).",
+          "Доғаның шеткі нүктелерінің айналу бұрышын анықтаймыз.",
+          "Жауапты сағат тіліне қарсы бағытта жазып, екі жағына косинустың периодын қосамыз ($2\\pi k, k \\in \\mathbb{Z}$)."
+        ],
+        cases: [
+          {
+            inequality: "\\cos x \\ge a",
+            interval: "x \\in [-\\arccos a + 2\\pi n;\\; \\arccos a + 2\\pi n]",
+            doubleIneq: "-\\arccos a + 2\\pi n \\le x \\le \\arccos a + 2\\pi n",
+            quadrantHint: "IV және I ширектердегі оң жақ доға",
+            svgType: "cos_ge_a"
+          },
+          {
+            inequality: "\\cos x \\ge -a",
+            interval: "x \\in [-(\\pi - \\arccos a) + 2\\pi n;\\; \\pi - \\arccos a + 2\\pi n]",
+            doubleIneq: "-(\\pi - \\arccos a) + 2\\pi n \\le x \\le \\pi - \\arccos a + 2\\pi n",
+            quadrantHint: "III, IV, I, II ширектерді қамтитын оң жақ үлкен доға",
+            svgType: "cos_ge_nega"
+          },
+          {
+            inequality: "\\cos x \\le a",
+            interval: "x \\in [\\arccos a + 2\\pi n;\\; 2\\pi - \\arccos a + 2\\pi n]",
+            doubleIneq: "\\arccos a + 2\\pi n \\le x \\le 2\\pi - \\arccos a + 2\\pi n",
+            quadrantHint: "I, II, III, IV ширектердегі сол жақ үлкен доға",
+            svgType: "cos_le_a"
+          },
+          {
+            inequality: "\\cos x \\le -a",
+            interval: "x \\in [\\pi - \\arccos a + 2\\pi n;\\; \\pi + \\arccos a + 2\\pi n]",
+            doubleIneq: "\\pi - \\arccos a + 2\\pi n \\le x \\le \\pi + \\arccos a + 2\\pi n",
+            quadrantHint: "II және III ширектердегі сол жақ доға",
+            svgType: "cos_le_nega"
+          }
+        ]
+      },
+      tg: {
+        title: "tg x ∨ a түріндегі қарапайым теңсіздіктер",
+        badge: "Тангенстер осі (x = 1)",
+        note: "Ескертпе: $\\text{tg}\\,x \\lor a$ теңсіздігінің шешімі ретінде тек $(-\\frac{\\pi}{2}; \\frac{\\pi}{2})$ аралығында жатқан доғаны ғана аламыз (шеткі нүктелері кірмейді, себебі $\\pm\\frac{\\pi}{2}$-де тангенс анықталмаған), ал теңсіздіктер жүйесінде толық шеңбер қарастырылады.",
+        algorithm: [
+          "Теңсіздікті стандарт түрге келтіреміз.",
+          "Тангенстер осінде ($x = 1$ түзуінде) $a$ санын белгілеп, сол саннан бастап шеңбердің центрі арқылы өтетін түзу жүргіземіз.",
+          "Шеңбердің оң жақ жартысынан $(-\\frac{\\pi}{2}; \\frac{\\pi}{2})$ берілген теңсіздікті қанағаттандыратын доғаны белгілейміз.",
+          "Доғаның шеткі нүктелерінің айналу бұрышын анықтаймыз ($-\\frac{\\pi}{2}$ және $\\frac{\\pi}{2}$ нүктелері әрқашан қатаң теңсіздікпен жазылады).",
+          "Жауапты сағат тіліне қарсы бағытта жазып, тангенстің периодын қосамыз ($\\pi k, k \\in \\mathbb{Z}$)."
+        ],
+        cases: [
+          {
+            inequality: "\\text{tg}\\,x \\ge a",
+            interval: "x \\in [\\text{arctg}\\,a + \\pi n;\\; \\frac{\\pi}{2} + \\pi n)",
+            doubleIneq: "\\text{arctg}\\,a + \\pi n \\le x < \\frac{\\pi}{2} + \\pi n",
+            quadrantHint: "I ширектегі жоғарғы бөлік ($\\frac{\\pi}{2}$ кірмейді)",
+            svgType: "tg_ge_a"
+          },
+          {
+            inequality: "\\text{tg}\\,x \\ge -a",
+            interval: "x \\in [-\\text{arctg}\\,a + \\pi n;\\; \\frac{\\pi}{2} + \\pi n)",
+            doubleIneq: "-\\text{arctg}\\,a + \\pi n \\le x < \\frac{\\pi}{2} + \\pi n",
+            quadrantHint: "IV және I ширектердегі жоғарғы доға",
+            svgType: "tg_ge_nega"
+          },
+          {
+            inequality: "\\text{tg}\\,x \\le a",
+            interval: "x \\in (-\\frac{\\pi}{2} + \\pi n;\\; \\text{arctg}\\,a + \\pi n]",
+            doubleIneq: "-\\frac{\\pi}{2} + \\pi n < x \\le \\text{arctg}\\,a + \\pi n",
+            quadrantHint: "IV және I ширектердегі төменгі доға",
+            svgType: "tg_le_a"
+          },
+          {
+            inequality: "\\text{tg}\\,x \\le -a",
+            interval: "x \\in (-\\frac{\\pi}{2} + \\pi n;\\; -\\text{arctg}\\,a + \\pi n]",
+            doubleIneq: "-\\frac{\\pi}{2} + \\pi n < x \\le -\\text{arctg}\\,a + \\pi n",
+            quadrantHint: "IV ширектегі төменгі бөлік ($-\\frac{\\pi}{2}$ кірмейді)",
+            svgType: "tg_le_nega"
+          }
+        ]
+      },
+      ctg: {
+        title: "ctg x ∨ a түріндегі қарапайым теңсіздіктер",
+        badge: "Котангенстер осі (y = 1)",
+        note: "Ескертпе: $\\text{ctg}\\,x \\lor a$ теңсіздігінің шешімі ретінде тек $(0; \\pi)$ аралығында жатқан жоғарғы жарты шеңбер доғасын ғана аламыз ($0$ және $\\pi$ нүктелері кірмейді), ал теңсіздіктер жүйесінде толық шеңбер қарастырылады.",
+        algorithm: [
+          "Теңсіздікті стандарт түрге келтіреміз.",
+          "Котангенстер осінде ($y = 1$ горизонталь түзуінде) $a$ санын белгілеп, сол саннан бастап шеңбердің центрі арқылы өтетін түзу жүргіземіз.",
+          "Шеңбердің жоғарғы жартысынан $(0; \\pi)$ берілген теңсіздікті қанағаттандыратын доғаны белгілейміз.",
+          "Доғаның шеткі нүктелерінің айналу бұрышын анықтаймыз ($0$ және $\\pi$ нүктелері әрқашан қатаң теңсіздікпен жазылады).",
+          "Жауапты сағат тіліне қарсы бағытта жазып, котангенстің периодын қосамыз ($\\pi k, k \\in \\mathbb{Z}$)."
+        ],
+        cases: [
+          {
+            inequality: "\\text{ctg}\\,x \\ge a",
+            interval: "x \\in (\\pi n;\\; \\text{arcctg}\\,a + \\pi n]",
+            doubleIneq: "\\pi n < x \\le \\text{arcctg}\\,a + \\pi n",
+            quadrantHint: "I ширектегі оң жақ доға ($0$ кірмейді)",
+            svgType: "ctg_ge_a"
+          },
+          {
+            inequality: "\\text{ctg}\\,x \\ge -a",
+            interval: "x \\in (\\pi n;\\; \\pi - \\text{arcctg}\\,a + \\pi n]",
+            doubleIneq: "\\pi n < x \\le \\pi - \\text{arcctg}\\,a + \\pi n",
+            quadrantHint: "I және II ширектердегі оң жақ доға",
+            svgType: "ctg_ge_nega"
+          },
+          {
+            inequality: "\\text{ctg}\\,x \\le a",
+            interval: "x \\in [\\text{arcctg}\\,a + \\pi n;\\; \\pi + \\pi n)",
+            doubleIneq: "\\text{arcctg}\\,a + \\pi n \\le x < \\pi + \\pi n",
+            quadrantHint: "I және II ширектердегі сол жақ доға",
+            svgType: "ctg_le_a"
+          },
+          {
+            inequality: "\\text{ctg}\\,x \\le -a",
+            interval: "x \\in [\\pi - \\text{arcctg}\\,a + \\pi n;\\; \\pi + \\pi n)",
+            doubleIneq: "\\pi - \\text{arcctg}\\,a + \\pi n \\le x < \\pi + \\pi n",
+            quadrantHint: "II ширектегі сол жақ доға ($\\pi$ кірмейді)",
+            svgType: "ctg_le_nega"
+          }
+        ]
+      }
+    };
+
+    // =========================================================================
+    // 2. CLEAN INTERACTIVE SVG UNIT CIRCLE GENERATOR
+    // =========================================================================
+    function buildUnitCircleSVG(type) {
+      // Coordinate system: SVG 260x220, Circle center (130, 110), Radius R = 64
+      const cx = 130, cy = 110, r = 64;
+      const deg38 = (38 * Math.PI) / 180; // Representative angle for 'a'
+      const cosA = r * Math.cos(deg38);
+      const sinA = r * Math.sin(deg38);
+
+      // Helper to create SVG arc path in standard math coordinates (counter-clockwise from startDeg to endDeg)
+      function polarToCart(angleDeg, radius = r) {
+        const rad = (angleDeg * Math.PI) / 180;
+        return {
+          x: +(cx + radius * Math.cos(rad)).toFixed(2),
+          y: +(cy - radius * Math.sin(rad)).toFixed(2)
+        };
+      }
+
+      // Draw counter-clockwise arc from startDeg to endDeg
+      function ccwArc(startDeg, endDeg, color = "#2563eb", strokeWidth = 4.5) {
+        let diff = endDeg - startDeg;
+        while (diff < 0) diff += 360;
+        const largeArc = diff > 180 ? 1 : 0;
+        const start = polarToCart(startDeg);
+        const end = polarToCart(endDeg);
+        // sweep-flag = 0 in SVG draws counter-clockwise!
+        return `<path d="M ${start.x} ${start.y} A ${r} ${r} 0 ${largeArc} 0 ${end.x} ${end.y}" fill="none" stroke="${color}" stroke-width="${strokeWidth}" stroke-linecap="round"/>`;
+      }
+
+      let overlay = "";
+
+      switch (type) {
+        // ---------------- SIN X ----------------
+        case "sin_ge_a": {
+          const p1 = polarToCart(38);
+          const p2 = polarToCart(142);
+          overlay = `
+            ${ccwArc(38, 142)}
+            <line x1="${cx - r - 12}" y1="${p1.y}" x2="${cx + r + 12}" y2="${p1.y}" stroke="#1d4ed8" stroke-width="1.6"/>
+            <line x1="${cx}" y1="${cy}" x2="${p1.x}" y2="${p1.y}" stroke="#1d4ed8" stroke-width="1.5" stroke-dasharray="3,2"/>
+            <line x1="${cx}" y1="${cy}" x2="${p2.x}" y2="${p2.y}" stroke="#1d4ed8" stroke-width="1.5" stroke-dasharray="3,2"/>
+            <circle cx="${p1.x}" cy="${p1.y}" r="3.8" fill="#1d4ed8"/>
+            <circle cx="${p2.x}" cy="${p2.y}" r="3.8" fill="#1d4ed8"/>
+            <text x="${cx + 5}" y="${p1.y - 4}" font-size="11" font-weight="700" fill="#1e3a8a">a</text>
+            <text x="${p1.x + 6}" y="${p1.y - 6}" font-size="10.5" font-weight="600" fill="#0f172a">arcsin a</text>
+            <text x="${p2.x - 54}" y="${p2.y - 6}" font-size="10.5" font-weight="600" fill="#0f172a">π - arcsin a</text>
+          `;
+          break;
+        }
+        case "sin_ge_nega": {
+          const p1 = polarToCart(-38);
+          const p2 = polarToCart(218);
+          overlay = `
+            ${ccwArc(-38, 218)}
+            <line x1="${cx - r - 12}" y1="${p1.y}" x2="${cx + r + 12}" y2="${p1.y}" stroke="#1d4ed8" stroke-width="1.6"/>
+            <line x1="${cx}" y1="${cy}" x2="${p1.x}" y2="${p1.y}" stroke="#1d4ed8" stroke-width="1.5" stroke-dasharray="3,2"/>
+            <line x1="${cx}" y1="${cy}" x2="${p2.x}" y2="${p2.y}" stroke="#1d4ed8" stroke-width="1.5" stroke-dasharray="3,2"/>
+            <circle cx="${p1.x}" cy="${p1.y}" r="3.8" fill="#1d4ed8"/>
+            <circle cx="${p2.x}" cy="${p2.y}" r="3.8" fill="#1d4ed8"/>
+            <text x="${cx + 5}" y="${p1.y + 12}" font-size="11" font-weight="700" fill="#1e3a8a">-a</text>
+            <text x="${p1.x + 6}" y="${p1.y + 12}" font-size="10.5" font-weight="600" fill="#0f172a">-arcsin a</text>
+            <text x="${p2.x - 56}" y="${p2.y + 12}" font-size="10.5" font-weight="600" fill="#0f172a">π + arcsin a</text>
+          `;
+          break;
+        }
+        case "sin_le_a": {
+          const p1 = polarToCart(142);
+          const p2 = polarToCart(38);
+          overlay = `
+            ${ccwArc(142, 398)}
+            <line x1="${cx - r - 12}" y1="${p1.y}" x2="${cx + r + 12}" y2="${p1.y}" stroke="#1d4ed8" stroke-width="1.6"/>
+            <line x1="${cx}" y1="${cy}" x2="${p1.x}" y2="${p1.y}" stroke="#1d4ed8" stroke-width="1.5" stroke-dasharray="3,2"/>
+            <line x1="${cx}" y1="${cy}" x2="${p2.x}" y2="${p2.y}" stroke="#1d4ed8" stroke-width="1.5" stroke-dasharray="3,2"/>
+            <circle cx="${p1.x}" cy="${p1.y}" r="3.8" fill="#1d4ed8"/>
+            <circle cx="${p2.x}" cy="${p2.y}" r="3.8" fill="#1d4ed8"/>
+            <text x="${cx + 5}" y="${p1.y - 4}" font-size="11" font-weight="700" fill="#1e3a8a">a</text>
+            <text x="${p2.x + 6}" y="${p2.y - 6}" font-size="10.5" font-weight="600" fill="#0f172a">arcsin a</text>
+            <text x="${p1.x - 68}" y="${p1.y - 6}" font-size="10" font-weight="600" fill="#0f172a">-(π+arcsin a)</text>
+          `;
+          break;
+        }
+        case "sin_le_nega": {
+          const p1 = polarToCart(218);
+          const p2 = polarToCart(322);
+          overlay = `
+            ${ccwArc(218, 322)}
+            <line x1="${cx - r - 12}" y1="${p1.y}" x2="${cx + r + 12}" y2="${p1.y}" stroke="#1d4ed8" stroke-width="1.6"/>
+            <line x1="${cx}" y1="${cy}" x2="${p1.x}" y2="${p1.y}" stroke="#1d4ed8" stroke-width="1.5" stroke-dasharray="3,2"/>
+            <line x1="${cx}" y1="${cy}" x2="${p2.x}" y2="${p2.y}" stroke="#1d4ed8" stroke-width="1.5" stroke-dasharray="3,2"/>
+            <circle cx="${p1.x}" cy="${p1.y}" r="3.8" fill="#1d4ed8"/>
+            <circle cx="${p2.x}" cy="${p2.y}" r="3.8" fill="#1d4ed8"/>
+            <text x="${cx + 5}" y="${p1.y + 12}" font-size="11" font-weight="700" fill="#1e3a8a">-a</text>
+            <text x="${p2.x + 6}" y="${p2.y + 12}" font-size="10.5" font-weight="600" fill="#0f172a">-arcsin a</text>
+            <text x="${p1.x - 66}" y="${p1.y + 12}" font-size="10" font-weight="600" fill="#0f172a">-(π-arcsin a)</text>
+          `;
+          break;
+        }
+
+        // ---------------- COS X ----------------
+        case "cos_ge_a": {
+          const p1 = polarToCart(-42);
+          const p2 = polarToCart(42);
+          overlay = `
+            ${ccwArc(-42, 42)}
+            <line x1="${p1.x}" y1="${cy - r - 12}" x2="${p1.x}" y2="${cy + r + 12}" stroke="#1d4ed8" stroke-width="1.6"/>
+            <line x1="${cx}" y1="${cy}" x2="${p1.x}" y2="${p1.y}" stroke="#1d4ed8" stroke-width="1.5" stroke-dasharray="3,2"/>
+            <line x1="${cx}" y1="${cy}" x2="${p2.x}" y2="${p2.y}" stroke="#1d4ed8" stroke-width="1.5" stroke-dasharray="3,2"/>
+            <circle cx="${p1.x}" cy="${p1.y}" r="3.8" fill="#1d4ed8"/>
+            <circle cx="${p2.x}" cy="${p2.y}" r="3.8" fill="#1d4ed8"/>
+            <text x="${p1.x - 10}" y="${cy + 13}" font-size="11" font-weight="700" fill="#1e3a8a">a</text>
+            <text x="${p2.x + 6}" y="${p2.y - 5}" font-size="10.5" font-weight="600" fill="#0f172a">arccos a</text>
+            <text x="${p1.x + 6}" y="${p1.y + 12}" font-size="10.5" font-weight="600" fill="#0f172a">-arccos a</text>
+          `;
+          break;
+        }
+        case "cos_ge_nega": {
+          const p1 = polarToCart(-138);
+          const p2 = polarToCart(138);
+          overlay = `
+            ${ccwArc(-138, 138)}
+            <line x1="${p1.x}" y1="${cy - r - 12}" x2="${p1.x}" y2="${cy + r + 12}" stroke="#1d4ed8" stroke-width="1.6"/>
+            <line x1="${cx}" y1="${cy}" x2="${p1.x}" y2="${p1.y}" stroke="#1d4ed8" stroke-width="1.5" stroke-dasharray="3,2"/>
+            <line x1="${cx}" y1="${cy}" x2="${p2.x}" y2="${p2.y}" stroke="#1d4ed8" stroke-width="1.5" stroke-dasharray="3,2"/>
+            <circle cx="${p1.x}" cy="${p1.y}" r="3.8" fill="#1d4ed8"/>
+            <circle cx="${p2.x}" cy="${p2.y}" r="3.8" fill="#1d4ed8"/>
+            <text x="${p1.x + 4}" y="${cy + 13}" font-size="11" font-weight="700" fill="#1e3a8a">-a</text>
+            <text x="${p2.x - 56}" y="${p2.y - 6}" font-size="10" font-weight="600" fill="#0f172a">π - arccos a</text>
+            <text x="${p1.x - 68}" y="${p1.y + 12}" font-size="10" font-weight="600" fill="#0f172a">-(π-arccos a)</text>
+          `;
+          break;
+        }
+        case "cos_le_a": {
+          const p1 = polarToCart(42);
+          const p2 = polarToCart(318);
+          overlay = `
+            ${ccwArc(42, 318)}
+            <line x1="${p1.x}" y1="${cy - r - 12}" x2="${p1.x}" y2="${cy + r + 12}" stroke="#1d4ed8" stroke-width="1.6"/>
+            <line x1="${cx}" y1="${cy}" x2="${p1.x}" y2="${p1.y}" stroke="#1d4ed8" stroke-width="1.5" stroke-dasharray="3,2"/>
+            <line x1="${cx}" y1="${cy}" x2="${p2.x}" y2="${p2.y}" stroke="#1d4ed8" stroke-width="1.5" stroke-dasharray="3,2"/>
+            <circle cx="${p1.x}" cy="${p1.y}" r="3.8" fill="#1d4ed8"/>
+            <circle cx="${p2.x}" cy="${p2.y}" r="3.8" fill="#1d4ed8"/>
+            <text x="${p1.x - 10}" y="${cy + 13}" font-size="11" font-weight="700" fill="#1e3a8a">a</text>
+            <text x="${p1.x + 6}" y="${p1.y - 5}" font-size="10.5" font-weight="600" fill="#0f172a">arccos a</text>
+            <text x="${p2.x + 6}" y="${p2.y + 12}" font-size="10" font-weight="600" fill="#0f172a">2π - arccos a</text>
+          `;
+          break;
+        }
+        case "cos_le_nega": {
+          const p1 = polarToCart(138);
+          const p2 = polarToCart(222);
+          overlay = `
+            ${ccwArc(138, 222)}
+            <line x1="${p1.x}" y1="${cy - r - 12}" x2="${p1.x}" y2="${cy + r + 12}" stroke="#1d4ed8" stroke-width="1.6"/>
+            <line x1="${cx}" y1="${cy}" x2="${p1.x}" y2="${p1.y}" stroke="#1d4ed8" stroke-width="1.5" stroke-dasharray="3,2"/>
+            <line x1="${cx}" y1="${cy}" x2="${p2.x}" y2="${p2.y}" stroke="#1d4ed8" stroke-width="1.5" stroke-dasharray="3,2"/>
+            <circle cx="${p1.x}" cy="${p1.y}" r="3.8" fill="#1d4ed8"/>
+            <circle cx="${p2.x}" cy="${p2.y}" r="3.8" fill="#1d4ed8"/>
+            <text x="${p1.x + 4}" y="${cy + 13}" font-size="11" font-weight="700" fill="#1e3a8a">-a</text>
+            <text x="${p1.x - 58}" y="${p1.y - 6}" font-size="10" font-weight="600" fill="#0f172a">π - arccos a</text>
+            <text x="${p2.x - 58}" y="${p2.y + 12}" font-size="10" font-weight="600" fill="#0f172a">π + arccos a</text>
+          `;
+          break;
+        }
+
+        // ---------------- TG X ----------------
+        case "tg_ge_a": {
+          const p1 = polarToCart(38);
+          const top = polarToCart(90);
+          const tx = cx + r;
+          const ty = cy - r * Math.tan((38 * Math.PI) / 180);
+          overlay = `
+            <line x1="${tx}" y1="${cy - r - 22}" x2="${tx}" y2="${cy + r + 22}" stroke="#64748b" stroke-width="1.4"/>
+            <line x1="${cx - 42}" y1="${cy + 33}" x2="${tx}" y2="${ty}" stroke="#1d4ed8" stroke-width="1.5"/>
+            ${ccwArc(38, 90)}
+            <circle cx="${p1.x}" cy="${p1.y}" r="3.8" fill="#1d4ed8"/>
+            <circle cx="${top.x}" cy="${top.y}" r="3.8" fill="#ffffff" stroke="#1d4ed8" stroke-width="2"/>
+            <circle cx="${tx}" cy="${ty}" r="3" fill="#1d4ed8"/>
+            <text x="${tx + 5}" y="${ty + 4}" font-size="11" font-weight="700" fill="#1e3a8a">a</text>
+            <text x="${tx + 5}" y="${ty + 16}" font-size="9.5" font-weight="600" fill="#0f172a">arctg a</text>
+            <text x="${top.x - 14}" y="${top.y - 7}" font-size="10.5" font-weight="700" fill="#1d4ed8">π/2</text>
+          `;
+          break;
+        }
+        case "tg_ge_nega": {
+          const p1 = polarToCart(-38);
+          const top = polarToCart(90);
+          const tx = cx + r;
+          const ty = cy + r * Math.tan((38 * Math.PI) / 180);
+          overlay = `
+            <line x1="${tx}" y1="${cy - r - 22}" x2="${tx}" y2="${cy + r + 22}" stroke="#64748b" stroke-width="1.4"/>
+            <line x1="${cx - 42}" y1="${cy - 33}" x2="${tx}" y2="${ty}" stroke="#1d4ed8" stroke-width="1.5"/>
+            ${ccwArc(-38, 90)}
+            <circle cx="${p1.x}" cy="${p1.y}" r="3.8" fill="#1d4ed8"/>
+            <circle cx="${top.x}" cy="${top.y}" r="3.8" fill="#ffffff" stroke="#1d4ed8" stroke-width="2"/>
+            <circle cx="${tx}" cy="${ty}" r="3" fill="#1d4ed8"/>
+            <text x="${tx + 5}" y="${ty + 4}" font-size="11" font-weight="700" fill="#1e3a8a">-a</text>
+            <text x="${tx + 5}" y="${ty + 16}" font-size="9.5" font-weight="600" fill="#0f172a">-arctg a</text>
+            <text x="${top.x - 14}" y="${top.y - 7}" font-size="10.5" font-weight="700" fill="#1d4ed8">π/2</text>
+          `;
+          break;
+        }
+        case "tg_le_a": {
+          const p1 = polarToCart(38);
+          const bot = polarToCart(-90);
+          const tx = cx + r;
+          const ty = cy - r * Math.tan((38 * Math.PI) / 180);
+          overlay = `
+            <line x1="${tx}" y1="${cy - r - 22}" x2="${tx}" y2="${cy + r + 22}" stroke="#64748b" stroke-width="1.4"/>
+            <line x1="${cx - 42}" y1="${cy + 33}" x2="${tx}" y2="${ty}" stroke="#1d4ed8" stroke-width="1.5"/>
+            ${ccwArc(-90, 38)}
+            <circle cx="${p1.x}" cy="${p1.y}" r="3.8" fill="#1d4ed8"/>
+            <circle cx="${bot.x}" cy="${bot.y}" r="3.8" fill="#ffffff" stroke="#1d4ed8" stroke-width="2"/>
+            <circle cx="${tx}" cy="${ty}" r="3" fill="#1d4ed8"/>
+            <text x="${tx + 5}" y="${ty + 4}" font-size="11" font-weight="700" fill="#1e3a8a">a</text>
+            <text x="${tx + 5}" y="${ty + 16}" font-size="9.5" font-weight="600" fill="#0f172a">arctg a</text>
+            <text x="${bot.x - 18}" y="${bot.y + 14}" font-size="10.5" font-weight="700" fill="#1d4ed8">-π/2</text>
+          `;
+          break;
+        }
+        case "tg_le_nega": {
+          const p1 = polarToCart(-38);
+          const bot = polarToCart(-90);
+          const tx = cx + r;
+          const ty = cy + r * Math.tan((38 * Math.PI) / 180);
+          overlay = `
+            <line x1="${tx}" y1="${cy - r - 22}" x2="${tx}" y2="${cy + r + 22}" stroke="#64748b" stroke-width="1.4"/>
+            <line x1="${cx - 42}" y1="${cy - 33}" x2="${tx}" y2="${ty}" stroke="#1d4ed8" stroke-width="1.5"/>
+            ${ccwArc(-90, -38)}
+            <circle cx="${p1.x}" cy="${p1.y}" r="3.8" fill="#1d4ed8"/>
+            <circle cx="${bot.x}" cy="${bot.y}" r="3.8" fill="#ffffff" stroke="#1d4ed8" stroke-width="2"/>
+            <circle cx="${tx}" cy="${ty}" r="3" fill="#1d4ed8"/>
+            <text x="${tx + 5}" y="${ty + 4}" font-size="11" font-weight="700" fill="#1e3a8a">-a</text>
+            <text x="${tx + 5}" y="${ty + 16}" font-size="9.5" font-weight="600" fill="#0f172a">-arctg a</text>
+            <text x="${bot.x - 18}" y="${bot.y + 14}" font-size="10.5" font-weight="700" fill="#1d4ed8">-π/2</text>
+          `;
+          break;
+        }
+
+        // ---------------- CTG X ----------------
+        case "ctg_ge_a": {
+          const p1 = polarToCart(42);
+          const right = polarToCart(0);
+          const cty = cy - r;
+          const ctx = cx + r / Math.tan((42 * Math.PI) / 180);
+          overlay = `
+            <line x1="${cx - r - 22}" y1="${cty}" x2="${cx + r + 28}" y2="${cty}" stroke="#64748b" stroke-width="1.4"/>
+            <line x1="${cx - 35}" y1="${cy + 32}" x2="${ctx}" y2="${cty}" stroke="#1d4ed8" stroke-width="1.5"/>
+            ${ccwArc(0, 42)}
+            <circle cx="${p1.x}" cy="${p1.y}" r="3.8" fill="#1d4ed8"/>
+            <circle cx="${right.x}" cy="${right.y}" r="3.8" fill="#ffffff" stroke="#1d4ed8" stroke-width="2"/>
+            <circle cx="${ctx}" cy="${cty}" r="3" fill="#1d4ed8"/>
+            <text x="${ctx - 3}" y="${cty - 6}" font-size="11" font-weight="700" fill="#1e3a8a">a</text>
+            <text x="${p1.x + 6}" y="${p1.y + 4}" font-size="10" font-weight="600" fill="#0f172a">arcctg a</text>
+          `;
+          break;
+        }
+        case "ctg_ge_nega": {
+          const p1 = polarToCart(138);
+          const right = polarToCart(0);
+          const cty = cy - r;
+          const ctx = cx - r / Math.tan((42 * Math.PI) / 180);
+          overlay = `
+            <line x1="${cx - r - 28}" y1="${cty}" x2="${cx + r + 22}" y2="${cty}" stroke="#64748b" stroke-width="1.4"/>
+            <line x1="${cx + 35}" y1="${cy + 32}" x2="${ctx}" y2="${cty}" stroke="#1d4ed8" stroke-width="1.5"/>
+            ${ccwArc(0, 138)}
+            <circle cx="${p1.x}" cy="${p1.y}" r="3.8" fill="#1d4ed8"/>
+            <circle cx="${right.x}" cy="${right.y}" r="3.8" fill="#ffffff" stroke="#1d4ed8" stroke-width="2"/>
+            <circle cx="${ctx}" cy="${cty}" r="3" fill="#1d4ed8"/>
+            <text x="${ctx - 6}" y="${cty - 6}" font-size="11" font-weight="700" fill="#1e3a8a">-a</text>
+            <text x="${p1.x - 56}" y="${p1.y - 4}" font-size="9.5" font-weight="600" fill="#0f172a">π - arcctg a</text>
+          `;
+          break;
+        }
+        case "ctg_le_a": {
+          const p1 = polarToCart(42);
+          const left = polarToCart(180);
+          const cty = cy - r;
+          const ctx = cx + r / Math.tan((42 * Math.PI) / 180);
+          overlay = `
+            <line x1="${cx - r - 22}" y1="${cty}" x2="${cx + r + 28}" y2="${cty}" stroke="#64748b" stroke-width="1.4"/>
+            <line x1="${cx - 35}" y1="${cy + 32}" x2="${ctx}" y2="${cty}" stroke="#1d4ed8" stroke-width="1.5"/>
+            ${ccwArc(42, 180)}
+            <circle cx="${p1.x}" cy="${p1.y}" r="3.8" fill="#1d4ed8"/>
+            <circle cx="${left.x}" cy="${left.y}" r="3.8" fill="#ffffff" stroke="#1d4ed8" stroke-width="2"/>
+            <circle cx="${ctx}" cy="${cty}" r="3" fill="#1d4ed8"/>
+            <text x="${ctx - 3}" y="${cty - 6}" font-size="11" font-weight="700" fill="#1e3a8a">a</text>
+            <text x="${p1.x + 6}" y="${p1.y + 4}" font-size="10" font-weight="600" fill="#0f172a">arcctg a</text>
+          `;
+          break;
+        }
+        case "ctg_le_nega": {
+          const p1 = polarToCart(138);
+          const left = polarToCart(180);
+          const cty = cy - r;
+          const ctx = cx - r / Math.tan((42 * Math.PI) / 180);
+          overlay = `
+            <line x1="${cx - r - 28}" y1="${cty}" x2="${cx + r + 22}" y2="${cty}" stroke="#64748b" stroke-width="1.4"/>
+            <line x1="${cx + 35}" y1="${cy + 32}" x2="${ctx}" y2="${cty}" stroke="#1d4ed8" stroke-width="1.5"/>
+            ${ccwArc(138, 180)}
+            <circle cx="${p1.x}" cy="${p1.y}" r="3.8" fill="#1d4ed8"/>
+            <circle cx="${left.x}" cy="${left.y}" r="3.8" fill="#ffffff" stroke="#1d4ed8" stroke-width="2"/>
+            <circle cx="${ctx}" cy="${cty}" r="3" fill="#1d4ed8"/>
+            <text x="${ctx - 6}" y="${cty - 6}" font-size="11" font-weight="700" fill="#1e3a8a">-a</text>
+            <text x="${p1.x - 56}" y="${p1.y - 4}" font-size="9.5" font-weight="600" fill="#0f172a">π - arcctg a</text>
+          `;
+          break;
+        }
+      }
+
+      return `
+        <svg viewBox="0 0 260 220" class="w-full max-w-[270px] h-auto mx-auto select-none" aria-label="Бірлік шеңбер сызбасы">
+          <defs>
+            <marker id="axisArrow" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+              <path d="M 0 1 L 10 5 L 0 9 z" fill="#334155"/>
+            </marker>
+          </defs>
+          <!-- Coordinate Axes -->
+          <line x1="25" y1="${cy}" x2="235" y2="${cy}" stroke="#334155" stroke-width="1.3" marker-end="url(#axisArrow)"/>
+          <line x1="${cx}" y1="202" x2="${cx}" y2="18" stroke="#334155" stroke-width="1.3" marker-end="url(#axisArrow)"/>
+
+          <!-- Base Unit Circle -->
+          <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="#0f172a" stroke-width="1.8"/>
+
+          <!-- Standard Axis Labels (0, π, 1, -1) -->
+          <text x="${cx + r + 5}" y="${cy - 4}" font-size="10.5" font-weight="700" fill="#2563eb">0</text>
+          <text x="${cx - r - 12}" y="${cy - 4}" font-size="10.5" font-weight="700" fill="#2563eb">π</text>
+          <text x="${cx - 10}" y="${cy - r - 4}" font-size="10" font-weight="600" fill="#475569">1</text>
+          <text x="${cx - 14}" y="${cy + r + 11}" font-size="10" font-weight="600" fill="#475569">-1</text>
+
+          <!-- Highlighted Arc & Lines -->
+          ${overlay}
+        </svg>
+      `;
+    }
+
+    function renderTrigFuncSection(funcKey) {
+      const data = trigInequalitiesData[funcKey];
+      const container = document.getElementById("trig-func-content");
+
+      const noteHtml = data.note
+        ? `<div class="mt-4 bg-amber-50 border-l-4 border-amber-500 p-3.5 rounded-r-xl text-xs sm:text-sm text-amber-950 font-medium leading-relaxed">
+             ${data.note}
+           </div>`
+        : "";
+
+      const algoStepsHtml = data.algorithm
+        .map(
+          (step, idx) => `
+          <li class="flex items-start gap-2.5 text-sm sm:text-base text-slate-700">
+            <span class="flex-shrink-0 w-6 h-6 rounded-full bg-royal-700 text-white text-xs font-bold flex items-center justify-center mt-0.5">${idx + 1}</span>
+            <span>${step}</span>
+          </li>`
+        )
+        .join("");
+
+      const casesHtml = data.cases
+        .map(
+          (item) => `
+          <div class="academic-subcard p-4 sm:p-5 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between gap-2 pb-2.5 border-b border-blue-100">
+                <span class="text-lg sm:text-xl font-extrabold text-royal-800">$${item.inequality}$</span>
+                <span class="text-[11px] font-semibold bg-blue-50 text-royal-700 px-2.5 py-1 rounded-full">${item.quadrantHint}</span>
+              </div>
+              <div class="my-3 bg-slate-50/70 rounded-xl p-2 border border-slate-100">
+                ${buildUnitCircleSVG(item.svgType)}
+              </div>
+            </div>
+            <div class="space-y-2 pt-2 border-t border-blue-100">
+              <div class="bg-royal-50 px-3 py-2 rounded-lg text-center overflow-x-auto math-scroll">
+                <div class="text-[11px] font-bold text-royal-700 uppercase">Қос теңсіздік түрі:</div>
+                <div class="text-xs sm:text-sm font-bold text-slate-900 mt-0.5">$${item.doubleIneq}$</div>
+              </div>
+              <div class="bg-blue-700 text-white px-3 py-2 rounded-lg text-center overflow-x-auto math-scroll">
+                <div class="text-[10px] font-semibold text-blue-100 uppercase">Аралық түрі ($n \\in \\mathbb{Z}$):</div>
+                <div class="text-xs sm:text-sm font-bold mt-0.5">$${item.interval}$</div>
+              </div>
+            </div>
+          </div>`
+        )
+        .join("");
+
+      container.innerHTML = `
+        <!-- Algorithm Card -->
+        <div class="academic-card p-5 sm:p-6">
+          <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+            <h3 class="text-lg sm:text-xl font-extrabold text-royal-800">${data.title} — Шешу алгоритмі</h3>
+            <span class="bg-blue-100 text-royal-800 text-xs font-bold px-3 py-1 rounded-full">${data.badge}</span>
+          </div>
+          <ol class="space-y-2.5">
+            ${algoStepsHtml}
+          </ol>
+          ${noteHtml}
+        </div>
+
+        <!-- 4 Cases Grid (a >= 0) -->
+        <div>
+          <div class="flex items-center justify-between mb-3">
+            <h3 class="text-base sm:text-lg font-extrabold text-slate-800 flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-royal-700"></span>
+              <span>Барлық 4 жағдай ($a \\ge 0$ болғандағы ширектер мен формулалар):</span>
+            </h3>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5">
+            ${casesHtml}
+          </div>
+        </div>
+      `;
+
+      // Re-render KaTeX formulas inside updated container
+      if (window.renderMathInElement) {
+        renderMathInElement(container, {
+          delimiters: [
+            { left: "$$", right: "$$", display: true },
+            { left: "$", right: "$", display: false }
+          ]
+        });
+      }
+    }
+
+    function selectTrigFunc(funcKey) {
+      ["sin", "cos", "tg", "ctg"].forEach((key) => {
+        const btn = document.getElementById(`func-btn-${key}`);
+        if (key === funcKey) {
+          btn.classList.remove("func-btn-inactive");
+          btn.classList.add("func-btn-active");
+        } else {
+          btn.classList.remove("func-btn-active");
+          btn.classList.add("func-btn-inactive");
+        }
+      });
+      renderTrigFuncSection(funcKey);
+    }
+
+    // =========================================================================
+    // 3. TAB 2 DATA: 6 ШЫҒАРУ ӘДІСІ МЕН ҚАЛАЙ АЖЫРАТУҒА БОЛАДЫ?
+    // =========================================================================
+    const methodsData = [
+      {
+        id: "method-1",
+        number: "1-әдіс",
+        title: "Көбейткіштерге жіктеу әдісі",
+        tag: "Қосындыны көбейтіндіге түрлендіру",
+        howToIdentify:
+          "Егер теңдеуде бірдей тригонометриялық функциялардың қосындысы немесе айырымы тұрса (мысалы, $\\sin 3x + \\sin x = 0$), не болмаса ортақ көбейткішті жақша сыртына шығарып, әр көбейткішті $0$-ге теңестіруге келсе — осы әдіс қолданылады.",
+        formulas: [
+          {
+            group: "Қосынды мен айырымды көбейтіндіге түрлендіру:",
+            items: [
+              "$$\\sin\\alpha \\pm \\sin\\beta = 2\\sin\\frac{\\alpha \\pm \\beta}{2}\\cos\\frac{\\alpha \\mp \\beta}{2}$$",
+              "$$\\cos\\alpha + \\cos\\beta = 2\\cos\\frac{\\alpha + \\beta}{2}\\cos\\frac{\\alpha - \\beta}{2}$$",
+              "$$\\cos\\alpha - \\cos\\beta = -2\\sin\\frac{\\alpha + \\beta}{2}\\sin\\frac{\\alpha - \\beta}{2}$$",
+              "$$\\text{tg}\\,\\alpha \\pm \\text{tg}\\,\\beta = \\frac{\\sin(\\alpha \\pm \\beta)}{\\cos\\alpha \\cdot \\cos\\beta}, \\quad \\text{ctg}\\,\\alpha \\pm \\text{ctg}\\,\\beta = \\frac{\\sin(\\beta \\pm \\alpha)}{\\sin\\alpha \\cdot \\sin\\beta}$$"
+            ]
+          },
+          {
+            group: "Көбейтіндіні қосындыға түрлендіру:",
+            items: [
+              "$$\\cos\\alpha\\cos\\beta = \\frac{1}{2}\\big(\\cos(\\alpha + \\beta) + \\cos(\\alpha - \\beta)\\big)$$",
+              "$$\\sin\\alpha\\cos\\beta = \\frac{1}{2}\\big(\\sin(\\alpha + \\beta) + \\sin(\\alpha - \\beta)\\big)$$",
+              "$$\\sin\\alpha\\sin\\beta = \\frac{1}{2}\\big(\\cos(\\alpha - \\beta) - \\cos(\\alpha + \\beta)\\big)$$"
+            ]
+          }
+        ],
+        examples: [
+          {
+            problem: "Теңдеуді шешіңіз: $\\sin 3x + \\sin x = 0$",
+            steps: [
+              "Синустардың қосындысы формуласын қолданамыз: $2\\sin\\frac{3x+x}{2}\\cos\\frac{3x-x}{2} = 0$",
+              "$2\\sin 2x \\cdot \\cos x = 0$",
+              "Әр көбейткішті нөлге теңестіреміз:",
+              "1) $\\sin 2x = 0 \\Rightarrow 2x = \\pi k \\Rightarrow x = \\frac{\\pi k}{2},\\; k \\in \\mathbb{Z}$",
+              "2) $\\cos x = 0 \\Rightarrow x = \\frac{\\pi}{2} + \\pi n,\\; n \\in \\mathbb{Z}$ (бұл жауап бірінші шешімнің ішіне кіреді).",
+              "Жауабы: $x = \\frac{\\pi k}{2},\\; k \\in \\mathbb{Z}$."
+            ]
+          }
+        ]
+      },
+      {
+        id: "method-2",
+        number: "2-әдіс",
+        title: "Жаңа айнымалы енгізу әдісі (Алмастыру)",
+        tag: "Квадрат теңдеуге келтіру",
+        howToIdentify:
+          "Теңдеуде немесе теңсіздікте бір ғана тригонометриялық функция және оның квадраты кездессе (мысалы, $a\\sin^2 x + b\\sin x + c = 0$ немесе $\\text{tg}^2 x - \\text{tg}\\,x - 2 \\ge 0$), не болмаса $\\cos 2x$ формуласы арқылы бір функцияға келтіруге болса ($\\cos 2x = 2\\cos^2 x - 1 = 1 - 2\\sin^2 x$), жаңа айнымалы $t$ енгіземіз! Назар аударыңыз: $\\sin x = t$ немесе $\\cos x = t$ алмастыруында $-1 \\le t \\le 1$ шарты орындалуы тиіс.",
+        formulas: [
+          {
+            group: "Бір функцияға келтіруге көмектесетін формулалар:",
+            items: [
+              "$$\\sin^2 x + \\cos^2 x = 1 \\Rightarrow \\sin^2 x = 1 - \\cos^2 x, \\quad \\cos^2 x = 1 - \\sin^2 x$$",
+              "$$\\cos 2x = 2\\cos^2 x - 1 = 1 - 2\\sin^2 x$$",
+              "$$\\text{tg}\\,x \\cdot \\text{ctg}\\,x = 1 \\Rightarrow \\text{ctg}\\,x = \\frac{1}{\\text{tg}\\,x}$$"
+            ]
+          }
+        ],
+        examples: [
+          {
+            problem: "1-мысал (Теңдеу): $\\cos 2x + 4\\cos x = 5$",
+            steps: [
+              "Қос бұрыштың косинусы бойынша $\\cos 2x = 2\\cos^2 x - 1$ формуласын қоямыз:",
+              "$2\\cos^2 x - 1 + 4\\cos x - 5 = 0$",
+              "$2\\cos^2 x + 4\\cos x - 6 = 0 \\quad | : 2$",
+              "$\\cos^2 x + 2\\cos x - 3 = 0$",
+              "Алмастыру жасаймыз: $\\cos x = t \\; (t \\in [-1; 1]) \\Rightarrow t^2 + 2t - 3 = 0$",
+              "Түбірлері: $t_1 = 1,\\; t_2 = -3$ (бөгде түбір, себебі $-3 \\notin [-1; 1]$).",
+              "$\\cos x = 1 \\Rightarrow x = 2\\pi k,\\; k \\in \\mathbb{Z}$."
+            ]
+          },
+          {
+            problem: "2-мысал (Теңсіздік): $\\text{tg}^2 x - \\text{tg}\\,x - 2 \\ge 0$",
+            steps: [
+              "Алмастыру жасаймыз: $\\text{tg}\\,x = a \\Rightarrow a^2 - a - 2 \\ge 0$",
+              "Түбірлері: $a_1 = -1,\\; a_2 = 2$. Интервалдар әдісімен: $a \\le -1$ немесе $a \\ge 2$.",
+              "1) $\\text{tg}\\,x \\le -1 \\Rightarrow -\\frac{\\pi}{2} + \\pi k < x \\le -\\frac{\\pi}{4} + \\pi k,\\; k \\in \\mathbb{Z}$",
+              "2) $\\text{tg}\\,x \\ge 2 \\Rightarrow \\text{arctg}\\,2 + \\pi k \\le x < \\frac{\\pi}{2} + \\pi k,\\; k \\in \\mathbb{Z}$",
+              "Жауабы: $x \\in \\left(-\\frac{\\pi}{2} + \\pi k; -\\frac{\\pi}{4} + \\pi k\\right] \\cup \\left[\\text{arctg}\\,2 + \\pi k; \\frac{\\pi}{2} + \\pi k\\right),\\; k \\in \\mathbb{Z}$."
+            ]
+          },
+          {
+            problem: "3-мысал (Теңсіздік): $\\cos 2x - 3\\sin x \\le -1$",
+            steps: [
+              "Қос бұрыш формуласы: $(1 - 2\\sin^2 x) - 3\\sin x \\le -1$",
+              "$2\\sin^2 x + 3\\sin x - 2 \\ge 0$",
+              "Алмастыру: $\\sin x = a \\Rightarrow 2a^2 + 3a - 2 \\ge 0$, түбірлері $a_1 = -2,\\; a_2 = \\frac{1}{2}$.",
+              "$\\sin x \\le -2$ (шешімі жоқ) немесе $\\sin x \\ge \\frac{1}{2}$.",
+              "Жауабы: $\\frac{\\pi}{6} + 2\\pi k \\le x \\le \\frac{5\\pi}{6} + 2\\pi k,\\; k \\in \\mathbb{Z}$."
+            ]
+          }
+        ]
+      },
+      {
+        id: "method-3",
+        number: "3-әдіс",
+        title: "Біртектес тригонометриялық теңдеулер (1-ші және 2-ші дәрежелі)",
+        tag: "cos kx немесе cos²kx-ке бөлу",
+        howToIdentify:
+          "Егер теңдеудің оң жағы $0$-ге тең болып, сол жағындағы барлық қосылғыштардың дәрежелері бірдей болса (тек $\\sin kx$ пен $\\cos kx$ бірінші дәрежеде немесе барлығы екінші дәрежеде тұрса) — бұл біртектес теңдеу! Егер оң жағында бос сан $d \\ne 0$ тұрса, оны $d(\\sin^2 kx + \\cos^2 kx)$ деп жазып, 2-ші дәрежелі біртектес теңдеуге айналдырамыз.",
+        formulas: [
+          {
+            group: "1-ші дәрежелі біртектес теңдеу:",
+            items: [
+              "$$a\\sin kx + b\\cos kx = 0 \\quad \\Big| : \\cos kx \\ne 0 \\quad \\Longrightarrow \\quad a\\,\\text{tg}\\,kx + b = 0$$"
+            ]
+          },
+          {
+            group: "2-ші дәрежелі біртектес теңдеу:",
+            items: [
+              "$$a\\sin^2 kx + b\\sin kx\\cos kx + c\\cos^2 kx = 0 \\quad \\Big| : \\cos^2 kx \\ne 0 \\quad \\Longrightarrow \\quad a\\,\\text{tg}^2 kx + b\\,\\text{tg}\\,kx + c = 0$$"
+            ]
+          }
+        ],
+        examples: [
+          {
+            problem: "Мысал: $2\\sin^2 x - 3\\sin x\\cos x + \\cos^2 x = 0$",
+            steps: [
+              "Барлық мүшелері 2-ші дәрежелі және оң жағы $0$-ге тең. Теңдеудің екі жағын $\\cos^2 x \\ne 0$-ге бөлеміз:",
+              "$2\\text{tg}^2 x - 3\\text{tg}\\,x + 1 = 0$",
+              "Квадрат теңдеудің түбірлері: $\\text{tg}\\,x = 1$ және $\\text{tg}\\,x = \\frac{1}{2}$.",
+              "1) $x = \\frac{\\pi}{4} + \\pi k,\\; k \\in \\mathbb{Z}$",
+              "2) $x = \\text{arctg}\\,\\frac{1}{2} + \\pi n,\\; n \\in \\mathbb{Z}$."
+            ]
+          }
+        ]
+      },
+      {
+        id: "method-4",
+        number: "4-әдіс",
+        title: "Формулалар көмегімен шығарылатын теңдеулер мен теңсіздіктер",
+        tag: "Қосу, қос бұрыш, дәрежені төмендету",
+        howToIdentify:
+          "Өрнектің жазылуы қосу формуласының ($\\sin\\alpha\\cos\\beta \\pm \\cos\\alpha\\sin\\beta$ немесе $\\cos\\alpha\\cos\\beta \\mp \\sin\\alpha\\sin\\beta$), қос бұрыштың немесе дәрежені төмендету формуласының ашылған түріне ұқсап тұрса, формуланы жинақтап қарапайым түрге келтіреміз.",
+        formulas: [
+          {
+            group: "Қосу формулалары:",
+            items: [
+              "$$\\sin(\\alpha \\pm \\beta) = \\sin\\alpha\\cos\\beta \\pm \\cos\\alpha\\sin\\beta$$",
+              "$$\\cos(\\alpha \\mp \\beta) = \\cos\\alpha\\cos\\beta \\pm \\sin\\alpha\\sin\\beta$$",
+              "$$\\text{tg}(\\alpha \\pm \\beta) = \\frac{\\text{tg}\\,\\alpha \\pm \\text{tg}\\,\\beta}{1 \\mp \\text{tg}\\,\\alpha \\cdot \\text{tg}\\,\\beta}, \\quad \\text{ctg}(\\alpha \\pm \\beta) = \\frac{\\text{ctg}\\,\\alpha \\cdot \\text{ctg}\\,\\beta \\mp 1}{\\text{ctg}\\,\\beta \\pm \\text{ctg}\\,\\alpha}$$"
+            ]
+          },
+          {
+            group: "Қос бұрыш және дәрежені төмендету формулалары:",
+            items: [
+              "$$\\sin 2\\alpha = 2\\sin\\alpha\\cos\\alpha, \\quad \\cos 2\\alpha = \\cos^2\\alpha - \\sin^2\\alpha, \\quad \\text{tg}\\,2\\alpha = \\frac{2\\text{tg}\\,\\alpha}{1 - \\text{tg}^2\\alpha}$$",
+              "$$\\cos^2\\frac{\\alpha}{2} = \\frac{1 + \\cos\\alpha}{2}, \\quad \\sin^2\\frac{\\alpha}{2} = \\frac{1 - \\cos\\alpha}{2}, \\quad \\text{tg}^2\\frac{\\alpha}{2} = \\frac{1 - \\cos\\alpha}{1 + \\cos\\alpha}$$"
+            ]
+          }
+        ],
+        examples: [
+          {
+            problem: "1-мысал: $\\sin 4x \\cdot \\cos\\frac{\\pi}{6} + \\sin\\frac{\\pi}{6} \\cdot \\cos 4x \\ge \\frac{1}{2}$",
+            steps: [
+              "Синустардың қосу формуласын қолданып жинақтаймыз: $\\sin\\left(4x + \\frac{\\pi}{6}\\right) \\ge \\frac{1}{2}$",
+              "Қарапайым теңсіздік ретінде шешеміз: $\\frac{\\pi}{6} + 2\\pi k \\le 4x + \\frac{\\pi}{6} \\le \\frac{5\\pi}{6} + 2\\pi k$",
+              "Барлық бөліктен $\\frac{\\pi}{6}$-ны азайтамыз: $2\\pi k \\le 4x \\le \\frac{2\\pi}{3} + 2\\pi k \\quad | : 4$",
+              "Жауабы: $\\frac{\\pi k}{2} \\le x \\le \\frac{\\pi}{6} + \\frac{\\pi k}{2},\\; k \\in \\mathbb{Z}$."
+            ]
+          },
+          {
+            problem: "2-мысал: $\\cos\\frac{x}{3}\\cos\\frac{\\pi}{3} - \\sin\\frac{x}{3}\\sin\\frac{\\pi}{3} > -\\frac{\\sqrt{3}}{2}$",
+            steps: [
+              "Косинустардың қосу формуласы: $\\cos\\left(\\frac{x}{3} + \\frac{\\pi}{3}\\right) > -\\frac{\\sqrt{3}}{2}$",
+              "$-\\frac{5\\pi}{6} + 2\\pi k < \\frac{x}{3} + \\frac{\\pi}{3} < \\frac{5\\pi}{6} + 2\\pi k$",
+              "$-\\frac{7\\pi}{6} + 2\\pi k < \\frac{x}{3} < \\frac{\\pi}{2} + 2\\pi k \\quad | \\cdot 3$",
+              "Жауабы: $x \\in \\left(-\\frac{7\\pi}{2} + 6\\pi k;\\; \\frac{3\\pi}{2} + 6\\pi k\\right),\\; k \\in \\mathbb{Z}$."
+            ]
+          }
+        ]
+      },
+      {
+        id: "method-5",
+        number: "5-әдіс",
+        title: "Қосымша бұрыш енгізу әдісі",
+        tag: "√(a² + b²) санына бөлу",
+        howToIdentify:
+          "Егер өрнек $a\\sin kx + b\\cos kx = c$ (немесе $<, >, \\le, \\ge$) түрінде берілсе және оң жағы $c \\ne 0$ болса (біртектес емес!), екі жағын да $\\sqrt{a^2 + b^2}$ санына бөлеміз. Сонда коэффициенттер кестелік мәндерге ($\\frac{1}{2}, \\frac{\\sqrt{2}}{2}, \\frac{\\sqrt{3}}{2}$) айналып, қосу формуласына жиналады.",
+        formulas: [
+          {
+            group: "Қосымша бұрыш алгоритмі:",
+            items: [
+              "$$a\\sin x + b\\cos x = c \\quad \\Big| : \\sqrt{a^2 + b^2}$$",
+              "$$\\frac{a}{\\sqrt{a^2+b^2}}\\sin x + \\frac{b}{\\sqrt{a^2+b^2}}\\cos x = \\frac{c}{\\sqrt{a^2+b^2}} \\Rightarrow \\sin(x + \\varphi) = \\frac{c}{\\sqrt{a^2+b^2}}$$"
+            ]
+          }
+        ],
+        examples: [
+          {
+            problem: "1-мысал: $\\sqrt{3}\\sin x - \\cos x < \\sqrt{2}$",
+            steps: [
+              "Коэффициенттер: $a = \\sqrt{3},\\; b = -1$. Онда $\\sqrt{(\\sqrt{3})^2 + (-1)^2} = \\sqrt{4} = 2$-ге бөлеміз:",
+              "$\\frac{\\sqrt{3}}{2}\\sin x - \\frac{1}{2}\\cos x < \\frac{\\sqrt{2}}{2}$",
+              "$\\cos\\frac{\\pi}{6}\\sin x - \\sin\\frac{\\pi}{6}\\cos x < \\frac{\\sqrt{2}}{2} \\Rightarrow \\sin\\left(x - \\frac{\\pi}{6}\\right) < \\frac{\\sqrt{2}}{2}$",
+              "$-\\frac{5\\pi}{4} + 2\\pi k < x - \\frac{\\pi}{6} < \\frac{\\pi}{4} + 2\\pi k$",
+              "Жауабы: $x \\in \\left(-\\frac{13\\pi}{12} + 2\\pi k;\\; \\frac{5\\pi}{12} + 2\\pi k\\right),\\; k \\in \\mathbb{Z}$."
+            ]
+          },
+          {
+            problem: "2-мысал: $\\sin 3x \\ge \\cos 3x$",
+            steps: [
+              "$\\sin 3x - \\cos 3x \\ge 0$. Мұнда $a = 1,\\; b = -1 \\Rightarrow \\sqrt{1^2 + (-1)^2} = \\sqrt{2}$-ге бөлеміз:",
+              "$\\frac{\\sqrt{2}}{2}\\sin 3x - \\frac{\\sqrt{2}}{2}\\cos 3x \\ge 0 \\Rightarrow \\sin\\left(3x - \\frac{\\pi}{4}\\right) \\ge 0$",
+              "$0 + 2\\pi k \\le 3x - \\frac{\\pi}{4} \\le \\pi + 2\\pi k$",
+              "$\\frac{\\pi}{4} + 2\\pi k \\le 3x \\le \\frac{5\\pi}{4} + 2\\pi k \\quad | : 3$",
+              "Жауабы: $x \\in \\left[\\frac{\\pi}{12} + \\frac{2\\pi k}{3};\\; \\frac{5\\pi}{12} + \\frac{2\\pi k}{3}\\right],\\; k \\in \\mathbb{Z}$."
+            ]
+          }
+        ]
+      },
+      {
+        id: "method-6",
+        number: "6-әдіс",
+        title: "Тригонометриялық теңсіздіктер жүйесі",
+        tag: "Бір шеңбердегі қиылысу",
+        howToIdentify:
+          "Екі немесе одан да көп тригонометриялық теңсіздік жүйе (фигуралы жақша $\\begin{cases} ... \\end{cases}$) ішінде берілсе, әр теңсіздікті бөлек шешіп, олардың доғаларын БІР бірлік шеңберге саламыз да, бояулардың қиылысқан (ортақ) бөлігін аламыз.",
+        formulas: [
+          {
+            group: "Шешу алгоритмі:",
+            items: [
+              "1. Жүйедегі әр теңсіздіктің шешімін жеке табу керек.",
+              "2. Теңсіздіктердің шешімдерінің бірлік шеңбердегі қиылысу аралықтары — теңсіздіктер жүйесінің шешімі болады.",
+              "3. Жауапты қос теңсіздік немесе сан аралығы ретінде жазамыз."
+            ]
+          }
+        ],
+        examples: [
+          {
+            problem: "Мысал: $\\begin{cases} \\sin x \\ge \\frac{1}{2} \\\\ \\cos x < -\\frac{\\sqrt{2}}{2} \\end{cases}$",
+            steps: [
+              "1) $\\sin x \\ge \\frac{1}{2}$ теңсіздігінің шеңбердегі доғасы: $\\left[\\frac{\\pi}{6};\\; \\frac{5\\pi}{6}\\right]$ (I және II ширектер).",
+              "2) $\\cos x < -\\frac{\\sqrt{2}}{2}$ теңсіздігінің шеңбердегі доғасы: $\\left(\\frac{3\\pi}{4};\\; \\frac{5\\pi}{4}\\right)$ (II және III ширектер).",
+              "3) Екі доғаның қиылысуы II ширекте $\\frac{3\\pi}{4}$ пен $\\frac{5\\pi}{6}$ аралығында орналасады.",
+              "Жауабы: $\\frac{3\\pi}{4} + 2\\pi k < x \\le \\frac{5\\pi}{6} + 2\\pi k,\\; k \\in \\mathbb{Z}$ немесе $x \\in \\left(\\frac{3\\pi}{4} + 2\\pi k;\\; \\frac{5\\pi}{6} + 2\\pi k\\right]$."
+            ],
+            hasSystemSVG: true
+          }
+        ]
+      }
+    ];
+
+    function buildSystemIntersectionSVG() {
+      const cx = 130, cy = 110, r = 64;
+      function pt(deg) {
+        const rad = (deg * Math.PI) / 180;
+        return { x: +(cx + r * Math.cos(rad)).toFixed(2), y: +(cy - r * Math.sin(rad)).toFixed(2) };
+      }
+      const p30 = pt(30), p150 = pt(150), p135 = pt(135), p225 = pt(225);
+      return `
+        <div class="my-3 bg-white border border-blue-200 rounded-xl p-3 max-w-xs mx-auto text-center">
+          <div class="text-xs font-bold text-royal-800 mb-1">Екі теңсіздіктің қиылысу аралығы:</div>
+          <svg viewBox="0 0 260 220" class="w-full h-auto mx-auto">
+            <line x1="25" y1="${cy}" x2="235" y2="${cy}" stroke="#334155" stroke-width="1.3"/>
+            <line x1="${cx}" y1="200" x2="${cx}" y2="20" stroke="#334155" stroke-width="1.3"/>
+            <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="#0f172a" stroke-width="1.6"/>
+            <!-- sin x >= 1/2 arc (30 to 150) -->
+            <path d="M ${p30.x} ${p30.y} A ${r} ${r} 0 0 0 ${p150.x} ${p150.y}" fill="none" stroke="#93c5fd" stroke-width="4"/>
+            <!-- cos x < -sqrt(2)/2 arc (135 to 225) -->
+            <path d="M ${p135.x} ${p135.y} A ${r} ${r} 0 0 0 ${p225.x} ${p225.y}" fill="none" stroke="#6ee7b7" stroke-width="4"/>
+            <!-- Intersection arc (135 to 150) highlighted in Royal Blue -->
+            <path d="M ${p135.x} ${p135.y} A ${r} ${r} 0 0 0 ${p150.x} ${p150.y}" fill="none" stroke="#1d4ed8" stroke-width="6.5" stroke-linecap="round"/>
+            <!-- Lines -->
+            <line x1="${p150.x}" y1="${p150.y}" x2="${p30.x}" y2="${p30.y}" stroke="#2563eb" stroke-width="1.3" stroke-dasharray="3,2"/>
+            <line x1="${p135.x}" y1="${p135.y}" x2="${p225.x}" y2="${p225.y}" stroke="#059669" stroke-width="1.3" stroke-dasharray="3,2"/>
+            <circle cx="${p135.x}" cy="${p135.y}" r="4" fill="#ffffff" stroke="#1d4ed8" stroke-width="2"/>
+            <circle cx="${p150.x}" cy="${p150.y}" r="4" fill="#1d4ed8"/>
+            <text x="${p135.x - 28}" y="${p135.y - 8}" font-size="11" font-weight="700" fill="#1d4ed8">3π/4</text>
+            <text x="${p150.x - 30}" y="${p150.y + 4}" font-size="11" font-weight="700" fill="#1d4ed8">5π/6</text>
+            <text x="${p30.x + 6}" y="${p30.y + 4}" font-size="10" fill="#475569">π/6</text>
+            <text x="${p225.x - 26}" y="${p225.y + 12}" font-size="10" fill="#475569">5π/4</text>
+          </svg>
+          <div class="text-[11px] text-slate-600">Қою көк доға: $(3\\pi/4;\\; 5\\pi/6]$ қиылысу аймағы</div>
+        </div>
+      `;
+    }
+
+    function renderMethodsSection() {
+      const container = document.getElementById("methods-container");
+      container.innerHTML = methodsData
+        .map((m) => {
+          const formulasHtml = m.formulas
+            .map(
+              (f) => `
+              <div class="bg-blue-50/60 border border-blue-200 rounded-xl p-3.5">
+                <div class="text-xs font-bold text-royal-800 uppercase tracking-wider mb-1.5">${f.group}</div>
+                <div class="space-y-1.5 overflow-x-auto math-scroll text-sm sm:text-base text-slate-900">
+                  ${f.items.map((line) => `<div>${line}</div>`).join("")}
+                </div>
+              </div>`
+            )
+            .join("");
+
+          const examplesHtml = m.examples
+            .map(
+              (ex) => `
+              <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 space-y-2">
+                <div class="font-bold text-royal-900 text-sm sm:text-base border-b border-slate-200 pb-2">
+                  ${ex.problem}
+                </div>
+                <div class="space-y-1.5 text-xs sm:text-sm text-slate-800 leading-relaxed overflow-x-auto math-scroll">
+                  ${ex.steps.map((s) => `<p>• ${s}</p>`).join("")}
+                </div>
+                ${ex.hasSystemSVG ? buildSystemIntersectionSVG() : ""}
+              </div>`
+            )
+            .join("");
+
+          return `
+            <article id="${m.id}" class="academic-card overflow-hidden">
+              <button type="button" onclick="toggleMethodBody('${m.id}-body')" class="w-full text-left px-5 py-4 bg-white hover:bg-blue-50/50 transition flex items-center justify-between gap-3 cursor-pointer">
+                <div class="flex flex-wrap items-center gap-2.5">
+                  <span class="bg-royal-700 text-white text-xs font-extrabold px-3 py-1 rounded-lg">${m.number}</span>
+                  <h3 class="text-base sm:text-lg font-extrabold text-slate-900">${m.title}</h3>
+                  <span class="hidden sm:inline-block bg-blue-100 text-royal-800 text-xs font-semibold px-2.5 py-0.5 rounded-full">${m.tag}</span>
+                </div>
+                <span id="${m.id}-body-icon" class="text-royal-700 font-bold text-xl select-none">−</span>
+              </button>
+
+              <div id="${m.id}-body" class="px-5 pb-5 pt-2 border-t border-blue-100 space-y-4">
+                <!-- How to identify -->
+                <div class="bg-amber-50/90 border-l-4 border-amber-500 p-3.5 rounded-r-xl">
+                  <div class="text-xs font-extrabold text-amber-900 uppercase tracking-wider mb-1">
+                    🔍 Қалай ажыратамыз? (Есепті тану белгісі)
+                  </div>
+                  <p class="text-xs sm:text-sm text-slate-800 leading-relaxed">${m.howToIdentify}</p>
+                </div>
+
+                <!-- Formulas -->
+                <div class="space-y-2.5">
+                  ${formulasHtml}
+                </div>
+
+                <!-- Solved Examples -->
+                <div class="space-y-2.5">
+                  <div class="text-xs font-extrabold text-slate-600 uppercase tracking-wider">📝 Толық шығарылған мысалдар:</div>
+                  <div class="grid grid-cols-1 ${m.examples.length > 1 ? "lg:grid-cols-2" : ""} gap-3">
+                    ${examplesHtml}
+                  </div>
+                </div>
+              </div>
+            </article>
+          `;
+        })
+        .join("");
+
+      if (window.renderMathInElement) {
+        renderMathInElement(container, {
+          delimiters: [
+            { left: "$$", right: "$$", display: true },
+            { left: "$", right: "$", display: false }
+          ]
+        });
+      }
+    }
+
+    function toggleMethodBody(bodyId) {
+      const body = document.getElementById(bodyId);
+      const icon = document.getElementById(`${bodyId}-icon`);
+      if (body.classList.contains("hidden")) {
+        body.classList.remove("hidden");
+        icon.textContent = "−";
+      } else {
+        body.classList.add("hidden");
+        icon.textContent = "+";
+      }
+    }
+
+    function toggleAllMethods(expand) {
+      methodsData.forEach((m) => {
+        const body = document.getElementById(`${m.id}-body`);
+        const icon = document.getElementById(`${m.id}-body-icon`);
+        if (expand) {
+          body.classList.remove("hidden");
+          icon.textContent = "−";
+        } else {
+          body.classList.add("hidden");
+          icon.textContent = "+";
+        }
+      });
+    }
+
+    // =========================================================================
+    // 4. NAVIGATION & UTILITY FUNCTIONS
+    // =========================================================================
+    function switchMainTab(tabNum) {
+      [1, 2, 3].forEach((n) => {
+        const btn = document.getElementById(`main-tab-${n}`);
+        const sec = document.getElementById(`section-tab-${n}`);
+        if (n === tabNum) {
+          btn.classList.remove("tab-btn-inactive");
+          btn.classList.add("tab-btn-active");
+          sec.classList.remove("hidden");
+        } else {
+          btn.classList.remove("tab-btn-active");
+          btn.classList.add("tab-btn-inactive");
+          sec.classList.add("hidden");
+        }
+      });
+    }
+
+    function showToast(message) {
+      const box = document.getElementById("toast-box");
+      const text = document.getElementById("toast-text");
+      text.textContent = message;
+      box.classList.remove("hidden");
+      setTimeout(() => {
+        box.classList.add("hidden");
+      }, 3200);
+    }
+
+    function copyShareMessage() {
+      const shareText =
+        "Тригонометрия Көмекшісі (ҰБТ-ға дайындық порталы): Формулалар, бірлік шеңбер, 6 шығару әдісі және ЖИ-подсказка!";
+      const tempInput = document.createElement("textarea");
+      tempInput.value = window.location.href.startsWith("http") ? window.location.href : shareText;
+      document.body.appendChild(tempInput);
+      tempInput.select();
+      try {
+        document.execCommand("copy");
+        showToast("Сілтеме буферге көшірілді! WhatsApp/Telegram-ға жібере аласыз.");
+      } catch (e) {
+        showToast("Көшіру сәтті орындалды!");
+      }
+      document.body.removeChild(tempInput);
+    }
+
+    // =========================================================================
+    // 5. TAB 3: IMAGE UPLOAD & GEMINI API SOLVER HINT
+    // =========================================================================
+    let uploadedBase64Data = null;
+    let uploadedMimeType = "image/png";
+
+    function handleImageUpload(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      uploadedMimeType = file.type || "image/png";
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        const dataUrl = e.target.result;
+        uploadedBase64Data = dataUrl.split(",")[1];
+        document.getElementById("image-preview").src = dataUrl;
+        document.getElementById("upload-placeholder").classList.add("hidden");
+        document.getElementById("image-preview-wrapper").classList.remove("hidden");
+        showToast("Сурет сәтті жүктелді! Енді «Тәсілін анықтау» батырмасын басыңыз.");
+      };
+      reader.readAsDataURL(file);
+    }
+
+    // Drag and drop support
+    const dropZone = document.getElementById("drop-zone");
+    dropZone.addEventListener("dragover", (e) => {
+      e.preventDefault();
+      dropZone.classList.add("bg-blue-100");
+    });
+    dropZone.addEventListener("dragleave", () => {
+      dropZone.classList.remove("bg-blue-100");
+    });
+    dropZone.addEventListener("drop", (e) => {
+      e.preventDefault();
+      dropZone.classList.remove("bg-blue-100");
+      if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+        const fileInput = document.getElementById("equation-image-input");
+        fileInput.files = e.dataTransfer.files;
+        handleImageUpload({ target: fileInput });
+      }
+    });
+
+    function clearUploadedImage() {
+      uploadedBase64Data = null;
+      document.getElementById("equation-image-input").value = "";
+      document.getElementById("image-preview").src = "";
+      document.getElementById("image-preview-wrapper").classList.add("hidden");
+      document.getElementById("upload-placeholder").classList.remove("hidden");
+    }
+
+    function setSampleEquation(eqText) {
+      clearUploadedImage();
+      document.getElementById("manual-equation-input").value = eqText;
+      analyzeWithGemini();
+    }
+
+    function toggleFullSolution() {
+      const box = document.getElementById("ai-full-solution-box");
+      const label = document.getElementById("toggle-solution-label");
+      if (box.classList.contains("hidden")) {
+        box.classList.remove("hidden");
+        label.textContent = "Толық шешімін жасыру";
+      } else {
+        box.classList.add("hidden");
+        label.textContent = "Толық шешімін көру (Өзіңіз шығарып көрген соң тексеріңіз)";
+      }
+    }
+
+    async function fetchWithBackoff(url, options, maxRetries = 4) {
+      let delay = 1000;
+      for (let attempt = 0; attempt <= maxRetries; attempt++) {
+        try {
+          const response = await fetch(url, options);
+          if (response.ok) {
+            return await response.json();
+          }
+          if (response.status === 429 || response.status >= 500) {
+            if (attempt === maxRetries) throw new Error(`API қатесі: ${response.status}`);
+            await new Promise((res) => setTimeout(res, delay));
+            delay *= 2;
+          } else {
+            const errData = await response.json().catch(() => ({}));
+            throw new Error(errData?.error?.message || `Сұраныс қатесі (${response.status})`);
+          }
+        } catch (err) {
+          if (attempt === maxRetries) throw err;
+          await new Promise((res) => setTimeout(res, delay));
+          delay *= 2;
+        }
+      }
+    }
+
+    async function analyzeWithGemini() {
+      const manualText = document.getElementById("manual-equation-input").value.trim();
+
+      if (!uploadedBase64Data && !manualText) {
+        showToast("Алдымен есептің суретін жүктеңіз немесе теңдеуді жазыңыз!");
+        return;
+      }
+
+      // Show loading UI
+      document.getElementById("ai-empty-state").classList.add("hidden");
+      document.getElementById("ai-result-state").classList.add("hidden");
+      document.getElementById("ai-loading-state").classList.remove("hidden");
+      document.getElementById("ai-full-solution-box").classList.add("hidden");
+      document.getElementById("toggle-solution-label").textContent =
+        "Толық шешімін көру (Өзіңіз шығарып көрген соң тексеріңіз)";
+
+      const systemInstruction = `Сен ҰБТ-ға (UNT) дайындайтын кәсіби қазақ тілді математика мұғалімісің.
+Оқушы саған тригонометриялық теңдеу немесе теңсіздіктің суретін немесе мәтінін жібереді.
+Сенің міндетің — оқушыға есептің қай тәсілмен шығарылатынына нақты әрі түсінікті подсказка беру.
+
+Есепті келесі 6 әдістің біріне (немесе комбинациясына) жатқызып талда:
+1. Көбейткіштерге жіктеу әдісі
+2. Жаңа айнымалы енгізу әдісі
+3. Біртектес тригонометриялық теңдеу (1-ші немесе 2-ші дәрежелі)
+4. Формулалар көмегімен шығарылатын теңдеулер мен теңсіздіктер әдісі (қосу, қос бұрыш, дәрежені төмендету формулалары)
+5. Қосымша бұрыш енгізу әдісі
+6. Қарапайым тригонометриялық теңсіздік немесе теңсіздіктер жүйесі
+
+Математикалық формулаларды LaTeX форматында ($...$) жаз. Жауапты тек таза JSON форматында қайтар.`;
+
+      const userParts = [];
+      if (uploadedBase64Data) {
+        userParts.push({
+          text: manualText
+            ? `Мына суреттегі тригонометриялық есепті талдап бер. Қосымша ескертпе: ${manualText}`
+            : "Мына суретте қандай тригонометриялық есеп жазылғанын оқып, оны қай әдіспен және қандай формуламен шығару керектігін түсіндіріп бер."
+        });
+        userParts.push({
+          inlineData: {
+            mimeType: uploadedMimeType,
+            data: uploadedBase64Data
+          }
+        });
+      } else {
+        userParts.push({
+          text: `Мына тригонометриялық есепті талдап, қай әдіспен және қандай формуламен шығару керектігін түсіндіріп бер: ${manualText}`
+        });
+      }
+
+      const payload = {
+        contents: [{ role: "user", parts: userParts }],
+        systemInstruction: { parts: [{ text: systemInstruction }] },
+        generationConfig: {
+          responseMimeType: "application/json",
+          responseSchema: {
+            type: "OBJECT",
+            properties: {
+              transcribedEquation: {
+                type: "STRING",
+                description: "Суретте немесе мәтінде жазылған есептің LaTeX ($...$) түріндегі нақты жазылуы"
+              },
+              methodBadge: {
+                type: "STRING",
+                description: "Әдістің қысқаша атауы (мысалы: 'Формулалар көмегімен шығару әдісі')"
+              },
+              methodExplanation: {
+                type: "STRING",
+                description: "Мында осындай өрнек жазылғандықтан, бұл есеп неге дәл осы әдіске жататынын түсіндіру"
+              },
+              formulaToUse: {
+                type: "STRING",
+                description: "Осы есепті шығару үшін қолданылатын нақты формула(лар) LaTeX ($...$) форматында"
+              },
+              firstStepHint: {
+                type: "STRING",
+                description: "Оқушы өзі бастап кетуі үшін алғашқы қадамға бағыт-бағдар (соңғы жауабын бірден айтпай)"
+              },
+              fullSolution: {
+                type: "STRING",
+                description: "Есептің басынан аяғына дейінгі толық қадамдық шешімі және соңғы жауабы (LaTeX $...$ форматында)"
+              }
+            },
+            required: [
+              "transcribedEquation",
+              "methodBadge",
+              "methodExplanation",
+              "formulaToUse",
+              "firstStepHint",
+              "fullSolution"
+            ]
+          }
+        }
+      };
+
+      const apiKey = "";
+      const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
+
+      try {
+        const result = await fetchWithBackoff(apiUrl, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        });
+
+        const rawText = result?.candidates?.[0]?.content?.parts?.[0]?.text;
+        if (!rawText) {
+          throw new Error("ЖИ жауабы бос келді. Қайта байқап көріңіз.");
+        }
+
+        const parsed = JSON.parse(rawText);
+
+        document.getElementById("ai-transcribed").innerHTML = parsed.transcribedEquation;
+        document.getElementById("ai-method-badge").textContent = parsed.methodBadge;
+        document.getElementById("ai-method-explanation").innerHTML = parsed.methodExplanation;
+        document.getElementById("ai-formula").innerHTML = parsed.formulaToUse;
+        document.getElementById("ai-first-step").innerHTML = parsed.firstStepHint;
+        document.getElementById("ai-full-solution-box").innerHTML = `
+          <div class="font-bold text-emerald-900 mb-1">✅ Толық қадамдық шешімі:</div>
+          <div>${parsed.fullSolution.replace(/\n/g, "<br/>")}</div>
+        `;
+
+        document.getElementById("ai-loading-state").classList.add("hidden");
+        const resultContainer = document.getElementById("ai-result-state");
+        resultContainer.classList.remove("hidden");
+
+        if (window.renderMathInElement) {
+          renderMathInElement(resultContainer, {
+            delimiters: [
+              { left: "$$", right: "$$", display: true },
+              { left: "$", right: "$", display: false }
+            ]
+          });
+        }
+      } catch (error) {
+        document.getElementById("ai-loading-state").classList.add("hidden");
+        document.getElementById("ai-empty-state").classList.remove("hidden");
+        showToast("Қате орын алды: " + error.message);
+      }
+    }
+
+    // =========================================================================
+    // INITIALIZE APP ON LOAD
+    // =========================================================================
+    window.addEventListener("DOMContentLoaded", () => {
+      renderTrigFuncSection("sin");
+      renderMethodsSection();
+    });
+  </script>
+</body>
+</html>
